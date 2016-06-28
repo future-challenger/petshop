@@ -1,0 +1,32 @@
+{
+  "name": "petshop-server",
+  "version": "0.1.0",
+  "description": "petshop nodejs server",
+  "main": "server.js",
+  "dependencies": {
+    "mongoose": "^4.5.2",
+    "express": "^4.14.0",
+    "passport": "^0.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/future-challenger/petshop.git"
+  },
+  "keywords": [
+    "oauth2",
+    "nodejs",
+    "mongodb",
+    "android"
+  ],
+  "author": "uncle charlie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/future-challenger/petshop/issues"
+  },
+  "homepage": "https://github.com/future-challenger/petshop#readme"
+}
