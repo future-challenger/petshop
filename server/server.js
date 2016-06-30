@@ -1,8 +1,11 @@
 // 引入我们需要的包express
 var express = require('express');
 var mongoose = require('mongoose');
-var Pet = require('./models/pet');
 var bodyParser = require('body-parser');
+
+var petController = require('./controllers/pet')
+    userController = require('./controllers/user');
+
 // 创建一个express的server
 var app = express();
 
@@ -23,23 +26,19 @@ router.get('/', function (req, res) {
     res.json({'message': '欢迎来到宠物商店'});
 });
 
-var petRouter = router.route('/pets');
+router.route('/pets')
+    .post(petController.postPets)
+    .get(petController.getPets);
 
-petRouter.post(function (req, res) {
-    var pet = new Pet();
-    pet.name = req.body.name;
-    pet.type = req.body.type;
-    pet.quantity = req.body.quantity;
+router.route('/pets/:pet_id')
+    .get(petController.getPet)
+    .put(petController.updatePet)
+    .delete(petController.deletePet);
 
-    pet.save(function (err) {
-        if (err) {
-            res.json({message: 'error', data: err});
-            return;
-        }
-
-        res.json({message: 'done', data: pet});
-    });
-});
+// path: /users, for users
+router.route('/users')
+    .post(userController.postUsers)
+    .get(userController.getUsers);
 
 // 给路由设定根路径为/api
 app.use('/api', router);
