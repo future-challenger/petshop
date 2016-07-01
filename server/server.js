@@ -9,7 +9,8 @@ var express             = require('express'),
     petController       = require('./controllers/pet'),
     userController      = require('./controllers/user'),
     authController      = require('./controllers/auth'),
-    clientController    = require('./controllers/client');
+    clientController    = require('./controllers/client'),
+    oauth2Controller    = require('./controllers/oauth2');
 
 // 创建一个express的server
 var app = express();
@@ -56,6 +57,13 @@ router.route('/users')
 router.route('/clients')
     .post(authController.isAuthenticated, clientController.postClients)
     .get(authController.isAuthenticated, clientController.getClients);
+
+router.route('/oauth2/authorize')
+    .post(authController.isAuthenticated, oauth2Controller.authorization)
+    .get(authController.isAuthenticated, oauth2Controller.decision);
+
+router.route('/oauth2/token')
+    .post(authController.isClientAuthenticated, oauth2Controller.token);
 
 // 给路由设定根路径为/api
 app.use('/api', router);
