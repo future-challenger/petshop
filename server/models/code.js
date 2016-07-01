@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var clientSchema = new Schema({
+var codeSchema = new Schema({
     value: {type: String, required: true},
     redirectUri: {type: String, required: true},
     userId: {type: String, required: true},

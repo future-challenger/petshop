@@ -30,6 +30,7 @@ var getClients = function(req, res) {
     });
 };
 
-module.exports = {postClients: postClients,
+module.exports = {
+        postClients: postClients,
         getClients: getClients
     };
