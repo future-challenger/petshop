@@ -59,8 +59,8 @@ router.route('/clients')
     .get(authController.isAuthenticated, clientController.getClients);
 
 router.route('/oauth2/authorize')
-    .post(authController.isAuthenticated, oauth2Controller.authorization)
-    .get(authController.isAuthenticated, oauth2Controller.decision);
+    .post(authController.isAuthenticated, oauth2Controller.decision)
+    .get(authController.isAuthenticated, oauth2Controller.authorization);
 
 router.route('/oauth2/token')
     .post(authController.isClientAuthenticated, oauth2Controller.token);
