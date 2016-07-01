@@ -1,10 +1,12 @@
 // 引入我们需要的包express
-var express = require('express');
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
+var express             = require('express'),
+    mongoose            = require('mongoose'),
+    bodyParser          = require('body-parser'),
+    passport            = require('passport'),
 
-var petController = require('./controllers/pet')
-    userController = require('./controllers/user');
+    petController       = require('./controllers/pet'),
+    userController      = require('./controllers/user'),
+    authController      = require('./controllers/auth');
 
 // 创建一个express的server
 var app = express();
@@ -36,6 +38,10 @@ router.route('/pets/:pet_id')
     .delete(petController.deletePet);
 
 // path: /users, for users
+// router.route('/users')
+//     .post(userController.postUsers)
+//     .get(authController.isAuthenticated, userController.getUsers);
+
 router.route('/users')
     .post(userController.postUsers)
     .get(userController.getUsers);

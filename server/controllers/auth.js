@@ -27,3 +27,5 @@ passport.use(new BasicStrategy(
         });
     }
 ));
+
+module.exports.isAuthenticated = passport.authenticate('basic', {session: false});
