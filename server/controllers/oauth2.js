@@ -21,12 +21,12 @@ server.deserializeClient(function(id, callback) {
     });
 });
 
-server.grant(oauth2orize.grant.code(function(client, redirectUri, user,ares, callback) {
+server.grant(oauth2orize.grant.code(function(client, redirectUri, user, ares, callback) {
     var code = new Code({
         value: uid(16),
         clientId: client._id,
         redirectUri: redirectUri,
-        useId: user._id
+        userId: user._id.toString()
     });
 
     code.save(function(err) {
