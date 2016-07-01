@@ -11,7 +11,8 @@
     "express-session": "^1.13.0",
     "mongoose": "^4.5.2",
     "passport": "^0.3.2",
-    "passport-http": "^0.3.0"
+    "passport-http": "^0.3.0",
+    "passport-http-bearer": "^1.0.1"
   },
   "devDependencies": {
     "nodemon": "^1.9.2"
