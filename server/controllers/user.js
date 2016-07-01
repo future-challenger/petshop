@@ -7,7 +7,7 @@ var postUsers = function (req, res) {
     });
 
     user.save(function (err) {
-        if (err, user) {
+        if (err) {
             res.json({message: 'error', data: err});
             return;
         }
