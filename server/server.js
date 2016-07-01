@@ -3,16 +3,26 @@ var express             = require('express'),
     mongoose            = require('mongoose'),
     bodyParser          = require('body-parser'),
     passport            = require('passport'),
+    ejs                 = require('ejs'),
+    session             = require('express-session'),
 
     petController       = require('./controllers/pet'),
     userController      = require('./controllers/user'),
-    authController      = require('./controllers/auth');
+    authController      = require('./controllers/auth'),
+    clientController    = require('./controllers/client');
 
 // 创建一个express的server
 var app = express();
+app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({
     extended: true
+}));
+
+app.use(session({
+    secret: 'a4f8071f-4447-c873-8ee2',
+    saveUninitialized: true,
+    resave: true
 }));
 
 // 连接数据库
@@ -29,22 +39,23 @@ router.get('/', function (req, res) {
 });
 
 router.route('/pets')
-    .post(petController.postPets)
-    .get(petController.getPets);
+    .post(authController.isAuthenticated, petController.postPets)
+    .get(authController.isAuthenticated, petController.getPets);
 
 router.route('/pets/:pet_id')
-    .get(petController.getPet)
-    .put(petController.updatePet)
-    .delete(petController.deletePet);
+    .get(authController.isAuthenticated, petController.getPet)
+    .put(authController.isAuthenticated, petController.updatePet)
+    .delete(authController.isAuthenticated, petController.deletePet);
 
 // path: /users, for users
-// router.route('/users')
-//     .post(userController.postUsers)
-//     .get(authController.isAuthenticated, userController.getUsers);
-
 router.route('/users')
     .post(userController.postUsers)
-    .get(userController.getUsers);
+    .get(authController.isAuthenticated, userController.getUsers);
+
+// 处理 /clients
+router.route('/clients')
+    .post(authController.isAuthenticated, clientController.postClients)
+    .get(authController.isAuthenticated, clientController.getClients);
 
 // 给路由设定根路径为/api
 app.use('/api', router);

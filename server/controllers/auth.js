@@ -1,9 +1,10 @@
-var passport =          require('passport'),
-    BasicStrategy =     require('passport-http').BasicStrategy,
-    User =              require('../models/user');
+var passport            = require('passport'),
+    BasicStrategy       = require('passport-http').BasicStrategy,
+    User                = require('../models/user'),
+    Client              = require('../models/client');
 
 passport.use(new BasicStrategy(
-    function(username, passpord, done) {
+    function(username, passowrd, done) {
         User.findOne({username: username}, function(err, user) {
             if (err) {
                 return done(err);
