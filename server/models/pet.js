@@ -1,6 +1,9 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    autoIncrement = require('mongoose-auto-increment');
 
 var Schema = mongoose.Schema;
+
+autoIncrement.initialize(mongoose.connection);
 
 var petSchema = new Schema({
     name: { type: String, required: true, unique: true },
@@ -8,4 +11,5 @@ var petSchema = new Schema({
     quantity: Number
 });
 
+petSchema.plugin(autoIncrement.plugin, {model: 'pet', field: 'petId', startAt: 1});
 module.exports = mongoose.model('pet', petSchema);

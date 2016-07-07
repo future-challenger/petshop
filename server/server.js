@@ -65,6 +65,22 @@ router.route('/oauth2/authorize')
 router.route('/oauth2/token')
     .post(authController.isClientAuthenticated, oauth2Controller.token);
 
+// 测试一下多个方法处理http请求
+function foo(req, res, next) {
+    console.log("第一个来了" + arguments);
+    if (req.query['next'] == 1) {
+        next();
+    } else {
+        res.send('no next');
+    }
+}
+
+function boo(req, res) {
+    res.send('yo');
+}
+
+router.route('/test').get([foo, boo]);
+
 // 给路由设定根路径为/api
 app.use('/api', router);
 // 运行server，并监听指定的端口
