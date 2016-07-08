@@ -1,4 +1,4 @@
-# petshop
+# Petshop
 
 This is a simple NodeJs server based Express. Database is MongoDB. The package that connect server and db is mongoose.
 
