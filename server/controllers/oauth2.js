@@ -75,28 +75,28 @@ server.exchange(oauth2orize.exchange.code(function(client, code, redirectUri, ca
     // });
 
     Code.findOne({value: code}).then(function(authCode) {
-            if (authCode === undefined) {return callback(null, false);}
-            if (client._id.toString() !== authCode.clientId) {return callback(null, false);}
-            if (redirectUri !== authCode.redirectUri) {return callback(null, false);}
+        if (authCode === undefined) {return callback(null, false);}
+        if (client._id.toString() !== authCode.clientId) {return callback(null, false);}
+        if (redirectUri !== authCode.redirectUri) {return callback(null, false);}
 
-            authCode.remove().then(function(){
-                var token = new token({
-                    value: uid(256),
-                    clientId: authCode.clientId,
-                    userId: authCode.userId
-                });
-
-                token.save().then(function(to) {
-                    callback(null, to);
-                }).catch(function(err) {
-                    callback(err);
-                });
-            }).catch(function(err){
-                callback(err);    
+        authCode.remove().then(function(){
+            var token = new token({
+                value: uid(256),
+                clientId: authCode.clientId,
+                userId: authCode.userId
             });
-        }).catch(function(err) {
-            callback(err);
+
+            token.save().then(function(to) {
+                callback(null, to);
+            }).catch(function(err) {
+                callback(err);
+            });
+        }).catch(function(err){
+            callback(err);    
         });
+    }).catch(function(err) {
+        callback(err);
+    });
 }));
 
 function uid(len) {
