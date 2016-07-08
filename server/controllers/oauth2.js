@@ -12,12 +12,17 @@ server.serializeClient(function(client, callback) {
 });
 
 server.deserializeClient(function(id, callback) {
-    Client.findOne({_id: id}, function (err, client) {
-        if (err) {
-            return callback(err);
-        }
+    // Client.findOne({_id: id}, function (err, client) {
+    //     if (err) {
+    //         return callback(err);
+    //     }
 
-        return callback(null, client);
+    //     return callback(null, client);
+    // });
+    Client.findOne({_id: id}).exec().then(function(c) {
+        callback(null, c);
+    }).catch(function(err) {
+        callback(err);
     });
 });
 
@@ -29,40 +34,69 @@ server.grant(oauth2orize.grant.code(function(client, redirectUri, user, ares, ca
         userId: user._id.toString()
     });
 
-    code.save(function(err) {
-        if (err) {
-            return callback(err);
-        }
+    // code.save(function(err) {
+    //     if (err) {
+    //         return callback(err);
+    //     }
 
-        callback(null, code.value);
+    //     callback(null, code.value);
+    // });
+    code.save().then(function(co) {
+        callback(null, co.value);
+    }).catch(function(err) {
+        callback(err);
     });
 }));
 
 server.exchange(oauth2orize.exchange.code(function(client, code, redirectUri, callback) {
-    Code.findOne({value: code}, function (err, authCode) {
-        if (err) {return callback(err);}
-        if (authCode === undefined) {return callback(null, false);}
-        if (client._id.toString() !== authCode.clientId) {return callback(null, false);}
-        if (redirectUri !== authCode.redirectUri) {return callback(null, false);}
+    // Code.findOne({value: code}, function (err, authCode) {
+    //     if (err) {return callback(err);}
+    //     if (authCode === undefined) {return callback(null, false);}
+    //     if (client._id.toString() !== authCode.clientId) {return callback(null, false);}
+    //     if (redirectUri !== authCode.redirectUri) {return callback(null, false);}
 
-        authCode.remove(function (err) {
-            if (err) {return callback(err);}
+    //     authCode.remove(function (err) {
+    //         if (err) {return callback(err);}
 
-            var token = new token({
-                value: uid(256),
-                clientId: authCode.clientId,
-                userId: authCode.userId
+    //         var token = new token({
+    //             value: uid(256),
+    //             clientId: authCode.clientId,
+    //             userId: authCode.userId
+    //         });
+
+    //         token.save(function (err) {
+    //             if (err) {
+    //                 return callback(err);
+    //             }
+
+    //             callback(null, token);
+    //         });
+    //     });
+    // });
+
+    Code.findOne({value: code}).then(function(authCode) {
+            if (authCode === undefined) {return callback(null, false);}
+            if (client._id.toString() !== authCode.clientId) {return callback(null, false);}
+            if (redirectUri !== authCode.redirectUri) {return callback(null, false);}
+
+            authCode.remove().then(function(){
+                var token = new token({
+                    value: uid(256),
+                    clientId: authCode.clientId,
+                    userId: authCode.userId
+                });
+
+                token.save().then(function(to) {
+                    callback(null, to);
+                }).catch(function(err) {
+                    callback(err);
+                });
+            }).catch(function(err){
+                callback(err);    
             });
-
-            token.save(function (err) {
-                if (err) {
-                    return callback(err);
-                }
-
-                callback(null, token);
-            });
+        }).catch(function(err) {
+            callback(err);
         });
-    });
 }));
 
 function uid(len) {
