@@ -6,65 +6,98 @@ var postPets = function(req, res) {
     pet.type = req.body.type;
     pet.quantity = req.body.quantity;
 
-    pet.save(function (err) {
-        if (err) {
-            res.json({message: 'error', data: err});
-            return;
-        }
+    // pet.save(function (err) {
+    //     if (err) {
+    //         res.json({message: 'error', data: err});
+    //         return;
+    //     }
 
+    //     res.json({message: 'done', data: pet});
+    // });
+
+    pet.save().then(function(p){
         res.json({message: 'done', data: pet});
+    }).catch(function(err) {
+        res.json({message: 'error', data: err});
     });
 };
 
 var getPets = function(req, res) {
-    Pet.find(function (err, pets) {
-        if (err) {
-            res.json({message: 'error', data: err});
-            return;
-        }
+    // Pet.find(function (err, pets) {
+    //     if (err) {
+    //         res.json({message: 'error', data: err});
+    //         return;
+    //     }
 
+    //     res.json({message: 'done', data: pets});
+    // });
+
+    Pet.find({}).exec().then(function(pets) {
         res.json({message: 'done', data: pets});
+    }).catch(function(err) {
+        res.json({message: 'error', data: err});
     });
 };
 
 var getPet = function(req, res) {
-    Pet.findById(req.params.pet_id, function (err, pet) {
-        if (err) {
-            res.json({message: 'error', data: err});
-            return;
-        }
+    // Pet.findById(req.params.pet_id, function (err, pet) {
+    //     if (err) {
+    //         res.json({message: 'error', data: err});
+    //         return;
+    //     }
+    //     res.json({message: 'done', data: pet});
+    // });
+
+    Pet.findById(req.params.pet_id).then(function(p) {
         res.json({message: 'done', data: pet});
+    }).catch(function(err) {
+        res.json({message: 'error', data: err});
     });
 };
 
 var updatePet = function(req, res) {
-    Pet.findById(req.params.pet_id, function(err, pet) {
-        if (err) {
-            res.json({message: 'error', data: err});
-            return;
-        }
+    // Pet.findById(req.params.pet_id, function(err, pet) {
+    //     if (err) {
+    //         res.json({message: 'error', data: err});
+    //         return;
+    //     }
 
-        pet.quantity = req.params.quantity;
+    //     pet.quantity = req.params.quantity;
 
-        pet.save(function (err) {
-            if (err) {
-                res.json({message: 'error', data: err});
-                return;
-            }
+    //     pet.save(function (err) {
+    //         if (err) {
+    //             res.json({message: 'error', data: err});
+    //             return;
+    //         }
+    // 
+    //         res.json({message: 'done', data: pet});
+    //     });
+    // });
 
-            res.json({message: 'done', data: pet});
-        });
+    Pet.findById(req.params.pet_id).then(function(p) {
+        p.quantity = req.params.quantity;
+        return p.save();
+    }).then(function(p){
+        res.json({message: 'done', data: pet});
+    }).catch(function(err) {
+        res.json({message: 'error', data: err});
     });
 };
 
 var deletePet = function(req, res) {
-    Pet.findByIdAndRemove(req.params.pet_id, function(err) {
-        if (err) {
-            res.json({message: 'error', data: err});
-            return;
-        }
+    // Pet.findByIdAndRemove(req.params.pet_id, function(err) {
+    //     if (err) {
+    //         res.json({message: 'error', data: err});
+    //         return;
+    //     }
 
+    //     res.json({message: 'done', data: {}});
+    // });
+
+    Pet.findByIdAndRemove(req.params.pet_id).then(function(){
         res.json({message: 'done', data: {}});
+    }).catch(function(err) {
+        res.json({message: 'error', data: err});
     });
 }
 
