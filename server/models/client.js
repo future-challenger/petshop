@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose    = require('./base');
 
 var clientSchema = new mongoose.Schema({
     name: {type: String, unique: true, required: true},

@@ -1,4 +1,4 @@
-var mongoose = require('mongoose'),
+var mongoose    = require('./base'),
     autoIncrement = require('mongoose-auto-increment');
 
 var Schema = mongoose.Schema;

@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose    = require('./base');
 var Schema = mongoose.Schema;
 
 var tokenSchema = new Schema({

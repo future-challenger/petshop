@@ -1,4 +1,4 @@
-var mongoose    = require('mongoose'),
+var mongoose    = require('./base'),
     bcrypt      = require('bcrypt-nodejs');
 
 var Schema = mongoose.Schema;
@@ -32,23 +32,13 @@ userSchema.pre('save', function (next) {
     });
 });
 
-// userSchema.methods.verifyPassword = function (password, callback) {
-    // bcrypt.compare(password, this.password, function (err, match) {
-    //     if (err) {
-    //         return callback(err);
-    //     }
+userSchema.methods.verifyPassword = function (password, callback) {
+    bcrypt.compare(password, this.password, function (err, match) {
+        if (err) {
+            return callback(err);
+        }
 
-    //     callback(null, match);
-    // });
-userSchema.methods.verifyPassword = function (password) {
-    return new Promise(function(resolve, reject) {
-        bcrypt.compare(password, this.password, function(err, match) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(match);
-            }
-        });
+        callback(null, match);
     });
 };
 

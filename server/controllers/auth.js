@@ -1,14 +1,15 @@
-var Promise             = require('bluebird'),
-    passport            = require('passport'),
-    BasicStrategy       = require('passport-http').BasicStrategy,
-    BearerStrategy      = require('passport-http-bearer').Strategy,
-    
-    User                = require('../models/user'),
-    Client              = require('../models/client'),
-    Token               = require('../models/token');
+var Promise = require('bluebird'),
+    passport = require('passport'),
+    BasicStrategy = require('passport-http').BasicStrategy,
+    BearerStrategy = require('passport-http-bearer').Strategy,
+
+    User = require('../models/user'),
+    Client = require('../models/client'),
+    Token = require('../models/token');
 
 passport.use(new BasicStrategy(
-    function(username, password, done) {
+    function (username, password, done) {
+        console.log('basic authentication')
         // User.findOne({username: username}, function(err, user) {
         //     if (err) {
         //         return done(err);
@@ -31,25 +32,50 @@ passport.use(new BasicStrategy(
         //     });
         // });
 
-        var user = Promise.promisifyAll(User);
-        user.findOneAsync({username: username}).then(function(user) {
-            if (!user) {
-                return done(null, false);
+        // var user = Promise.promisifyAll(User);
+        // user.findOneAsync({ username: username }).then(function (u) {
+        //     if (!u) {
+        //         return done(null, false);
+        //     }
+
+        //     console.log('user is ' + u);
+
+        //     var verifyPasswordAsync = Promise.promisify(u.verifyPassword, { context: u });
+        //     verifyPasswordAsync(password).then(function (match) {
+        //         console.log('password match ' + match);
+        //         if (!match) {
+        //             console.log('is match ' + match);
+        //             return done(null, false);
+        //         }
+        //         return done(null, u);
+        //     });
+        // }).catch(function (err) {
+        //     return done(err);
+        // });
+
+        User.findOne({ username: username }).exec().then(function (u) {
+            if (!u) {
+                done(null, false);
+                return;
             }
-            user.verifyPassword(password).then(function(match) {
+            var verifyPasswordAsync = Promise.promisify(u.verifyPassword, { context: u });
+            verifyPasswordAsync(password).then(function (match) {
+                console.log('password match ' + match);
                 if (!match) {
-                    return done(null, false);
+                    console.log('is match ' + match);
+                    done(null, false);
+                } else {
+                    done(null, u);
                 }
-                return done(null, user);
             });
-        }).catch(function(err) {
-            return done(err);
+        }).catch(function (err) {
+            done(err);
         });
     }
 ));
 
 passport.use('client-basic', new BasicStrategy(
-    function(username, password, done) {
+    function (username, password, done) {
         // Client.findOne({id: username}, function(err, client) {
         //     if (err) {
         //         return done(err);
@@ -61,20 +87,31 @@ passport.use('client-basic', new BasicStrategy(
 
         //     return done(null, client);
         // });
-        var client = Promise.promisifyAll(Client);
-        client.findOneAsync({id: username}).then(function(client) {
-            if (!client || client.secret !== password) {
-                return done(null, false);
+
+        // var client = Promise.promisifyAll(Client);
+        // client.findOneAsync({ id: username }).then(function (client) {
+        //     if (!client || client.secret !== password) {
+        //         return done(null, false);
+        //     }
+        //     return done(null, client);
+        // }).catch(function (err) {
+        //     return done(err);
+        // });
+
+        Client.findOne({id: username}).exec().then(function(c) {
+            if (!c || c.secret !== password) {
+                done(null, false);
+            } else {
+                done(null, c);
             }
-            return done(null, client);
-        }).catch(function(err) {
-            return done(err);
+        }).catch(function(err){
+            done(err);
         });
     }
 ));
 
 passport.use(new BearerStrategy(
-    function(accessToken, done) {
+    function (accessToken, done) {
         // Token.findOne({value: accessToken}, function (err, token) {
         //     if (err) {
         //         return done(err);
@@ -97,25 +134,28 @@ passport.use(new BearerStrategy(
         //     });
         // });
 
+        console.log('bearer auth');
         var token = Promise.promisifyAll(Token);
         var user = Promise.promisifyAll(User);
-        token.findOneAsync({value: accessToken}).then(function(t) {
+        token.findOneAsync({ value: accessToken }).then(function (t) {
             if (!t) {
                 return done(null, false);
             }
-            user.findOneAsync({_id: t.userId}).then(function(u) {
+            user.findOneAsync({ _id: t.userId }).then(function (u) {
                 if (!u) {
                     return done(null, false);
                 }
-                return done(null, user, {scope: '*'});
+                return done(null, user, { scope: '*' });
+            }).catch(function (err) {
+                return done(err);
             });
-        }).catch(function(err) {
+        }).catch(function (err) {
             return done(err);
         });
     }
 ));
 
 // module.exports.isAuthenticated = passport.authenticate('basic', {session: false});
-module.exports.isAuthenticated = passport.authenticate(['basic', 'bearer'], {session: false});
-module.exports.isClientAuthenticated = passport.authenticate('client-basic', {session: false});
-module.exports.isBearerAuthenticated = passport.authenticate('bearer', {session: false});
+module.exports.isAuthenticated = passport.authenticate(['basic', 'bearer'], { session: false });
+module.exports.isClientAuthenticated = passport.authenticate('client-basic', { session: false });
+module.exports.isBearerAuthenticated = passport.authenticate('bearer', { session: false });
