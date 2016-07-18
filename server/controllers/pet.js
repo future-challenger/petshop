@@ -54,14 +54,20 @@ var getPet = function(req, res) {
     //     res.json({message: 'error', data: err});
     // });
 
-    Pet.anotherFindOne({'_id': req.params.pet_id}, function(err, pet) {
-        console.log('Pet.anotherFindOne');
-        if (err) {
-            res.json({message: 'error', data: err});
-            return;
-        }
+    // Pet.anotherFindOne({'_id': req.params.pet_id}, function(err, pet) {
+    //     console.log('Pet.anotherFindOne');
+    //     if (err) {
+    //         res.json({message: 'error', data: err});
+    //         return;
+    //     }
 
+    //     res.json({message: 'done', data: pet});
+    // });
+
+    Pet.anotherFindOne({'_id': req.params.pet_id}).exec().then(function(pet) {
         res.json({message: 'done', data: pet});
+    }).catch(function(err) {
+        res.json({message: 'error', data: err});
     });
 };
 
