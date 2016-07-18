@@ -2,6 +2,7 @@ var Promise = require('bluebird'),
     passport = require('passport'),
     BasicStrategy = require('passport-http').BasicStrategy,
     BearerStrategy = require('passport-http-bearer').Strategy,
+    // ClientPasswordStrategy = require('passport-oauth2-client-password').
 
     User = require('../models/user'),
     Client = require('../models/client'),
@@ -109,6 +110,20 @@ passport.use('client-basic', new BasicStrategy(
         });
     }
 ));
+
+// passport.use(new ClientPasswordStrategy(
+//     function(clientId, clientSecret, done) {
+//         Client.findOne({id: username}).exec().then(function(c) {
+//             if (!c || c.secret !== password) {
+//                 done(null, false);
+//             } else {
+//                 done(null, c);
+//             }
+//         }).catch(function(err){
+//             done(err);
+//         });
+//     }
+// ));
 
 passport.use(new BearerStrategy(
     function (accessToken, done) {
