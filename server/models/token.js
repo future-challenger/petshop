@@ -1,5 +1,5 @@
 var mongoose    = require('./base');
-var Schema = mongoose.Schema;
+var Schema = mongoose.BaseSchema;
 
 var tokenSchema = new Schema({
     value: {type: String, required: true},

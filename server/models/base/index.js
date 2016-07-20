@@ -10,14 +10,14 @@ function BaseSchema() {
     Schema.apply(this, arguments);
 
     this.add({
-        createdBy: { type: String, required: true },
+        createdBy: { type: String, default: 'admin'},
         createdAt: { type: Date, required: true, default: Date.now() },
-        updatedBy: { type: String, required: true },
+        updatedBy: { type: String, default: 'admin'},
         updatedAt: { type: Date, required: true, default: Date.now() }
     });
 }
 
-util.inherites(BaseSchema, Schema);
+util.inherits(BaseSchema, Schema);
 
 module.exports = mongoose;
 module.exports.BaseSchema = BaseSchema;
