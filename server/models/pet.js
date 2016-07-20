@@ -1,9 +1,6 @@
-var mongoose    = require('./base'),
-    autoIncrement = require('mongoose-auto-increment');
+var mongoose    = require('./base');
 
 var Schema = mongoose.BaseSchema;
-
-autoIncrement.initialize(mongoose.connection);
 
 var petSchema = new Schema({
     name: { type: String, required: true, unique: true },

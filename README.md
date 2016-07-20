@@ -102,3 +102,46 @@ Pet.anotherFindOne({'_id': req.params.pet_id}).exec().then(function(pet) {
     });
 ```
 You would notice that even the customized static method can be used in the promisified way.
+
+## extend mongoose.Schema
+You can refer to the mongoose doc [here](http://mongoosejs.com/docs/api.html#model_Model.discriminator)
+But the doc is not enough. When i have a `BaseSchema` i would like to use it everywhere like how i use `Schema`. So i define it in the existing *base* doc *index.js* file, then exports it.
+```javascript
+var mongoose = require('mongoose'),
+    util     = require('util');
+    Promise  = require('bluebird');
+    
+mongoose.Promise = Promise;
+
+var Schema = mongoose.Schema;
+
+function BaseSchema() {
+    Schema.apply(this, arguments);
+
+    this.add({
+        createdBy: { type: String, default: 'admin'},
+        createdAt: { type: Date, required: true, default: Date.now() },
+        updatedBy: { type: String, default: 'admin'},
+        updatedAt: { type: Date, required: true, default: Date.now() }
+    });
+}
+
+util.inherits(BaseSchema, Schema);
+
+module.exports = mongoose;
+module.exports.BaseSchema = BaseSchema;
+```
+In this extended `BaseSchema`, there are four fields added. All models defined by this Schema will automatically has these four fields.
+
+Then use it like this:
+```javascript
+var mongoose    = require('./base');
+
+var Schema = mongoose.BaseSchema;
+
+var petSchema = new Schema({
+    name: { type: String, required: true, unique: true },
+    type: { type: String, required: true },
+    quantity: Number
+});
+```
