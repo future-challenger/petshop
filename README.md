@@ -64,3 +64,41 @@ But the method `verifyPassword` is not promisified. But when use it later, you c
 var verifyPasswordAsync = Promise.promisify(u.verifyPassword, { context: u });
 ```
 **Do remember to set context**, or it may not work.
+
+##Mongoose, add instance methods or static methods to model
+to add an instance method, just use the `Schema.methods.methodName = function(){}` or `Schema.method{'methodName', fn}`. eg:
+```javascript
+// eg 1
+var schema = kittySchema = new Schema(..);
+
+schema.method('meow', function () {
+  console.log('meeeeeoooooooooooow');
+})
+
+var Kitty = mongoose.model('Kitty', schema);
+
+var fizz = new Kitty;
+fizz.meow(); // meeeeeooooooooooooow
+
+// eg 2
+var schema = kittySchema = new Schema(..);
+...
+schema.methods.meow = function () {
+  console.log('meeeeeoooooooooooow');
+})
+...
+```
+static methods to model. 
+```javascript
+petSchema.static('anotherFindOne', function(options, callback) {
+    var conditions = options || {};
+    return this.findOne(conditions, callback);
+});
+
+Pet.anotherFindOne({'_id': req.params.pet_id}).exec().then(function(pet) {
+        res.json({message: 'done', data: pet});
+    }).catch(function(err) {
+        res.json({message: 'error', data: err});
+    });
+```
+You would notice that even the customized static method can be used in the promisified way.
