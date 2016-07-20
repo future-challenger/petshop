@@ -21,7 +21,13 @@ var postPets = function(req, res) {
     console.log(`print options extended`);
     utils.listAllKeyValues(options);
 
-    pet.save().then(function(p){
+    // pet.save().then(function(p){
+    //     res.json({message: 'done', data: pet});
+    // }).catch(function(err) {
+    //     res.json({message: 'error', data: err});
+    // });
+
+    Pet.saveOne(options).then(function(pet) {
         res.json({message: 'done', data: pet});
     }).catch(function(err) {
         res.json({message: 'error', data: err});
