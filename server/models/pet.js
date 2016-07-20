@@ -13,5 +13,4 @@ petSchema.static('anotherFindOne', function(options, callback) {
     return this.findOne(conditions, callback);
 });
 
-petSchema.plugin(autoIncrement.plugin, {model: 'pet', field: 'petId', startAt: 1});
 module.exports = mongoose.model('pet', petSchema);

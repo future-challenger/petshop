@@ -145,3 +145,25 @@ var petSchema = new Schema({
     quantity: Number
 });
 ```
+Pet model will have thoese added fields:
+```javascript
+var petModel = mongoose.model('pet', petSchema);
+```
+Use post add a pet model in mongodb, then
+```
+db.pets.find().pretty()
+```
+output will be:
+```
+{
+	"_id" : ObjectId("578f6130b107a82173533c76"),
+	"quantity" : 12345,
+	"type" : "1",
+	"name" : "YoYo123456",
+	"updatedAt" : ISODate("2016-07-20T11:31:54.011Z"),
+	"updatedBy" : "admin",
+	"createdAt" : ISODate("2016-07-20T11:31:54.011Z"),
+	"createdBy" : "admin",
+	"__v" : 0
+}
+```
