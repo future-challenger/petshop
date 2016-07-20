@@ -1,4 +1,6 @@
-var Pet = require('../models/pet');
+var _       = require('lodash'),
+    utils   = require('../utils'),
+    Pet     = require('../models/pet');
 
 var postPets = function(req, res) {
     var pet = new Pet();
@@ -14,6 +16,10 @@ var postPets = function(req, res) {
 
     //     res.json({message: 'done', data: pet});
     // });
+
+    var options = _.extend({}, req.query, req.body, req.params);
+    console.log(`print options extended`);
+    utils.listAllKeyValues(options);
 
     pet.save().then(function(p){
         res.json({message: 'done', data: pet});
@@ -63,6 +69,8 @@ var getPet = function(req, res) {
 
     //     res.json({message: 'done', data: pet});
     // });
+
+
 
     Pet.anotherFindOne({'_id': req.params.pet_id}).exec().then(function(pet) {
         res.json({message: 'done', data: pet});
