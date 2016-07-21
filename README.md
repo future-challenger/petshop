@@ -167,3 +167,93 @@ output will be:
 	"__v" : 0
 }
 ```
+
+## MongoDB aggregate? 
+It's a good news that lots of new stuff added in MongoDB 3.2, expecially the "left outer join" one. Use `$lookup` you can do this in MongoDB. 
+### Sub-doc
+When I try to find something related to this stuff in Mongoose i find **sub-doc** first. It's interesting to use this, let's give it a shot.
+As we have pets now and we shall pets' accessories too. So we add a accessory schema in *models/accessory.js* file.
+```javascript
+var mongoose = require('./base');
+
+var Schema = mongoose.BaseSchema;
+
+var AccessorySchema = new Schema({
+    name: {type: String, required: true},
+    price: {type: Number, required: true}
+});
+
+module.exports = {
+    schema: AccessorySchema,
+    model: mongoose.model('accessories', AccessorySchema)
+};
+```  
+`module.exports` exported an object with two fileds `schema` and `model`. This is because besides the schema we may want to use the model.
+
+Now go to *models/pet.js* file. 
+require accessory stuff:
+```javascript
+var Accessory = require('./accessory');
+
+var AccessorySchema = Accessory.schema;
+var AccessoryModel = Accessory.model;
+```
+
+Use AccessorySchema in pet schema:
+```javascript
+var petSchema = new Schema({
+    name: { type: String, required: true, unique: true },
+    type: { type: String, required: true },
+    quantity: Number,
+    accessories: [AccessorySchema]
+});
+```
+`accessories` is the *sub-doc*. Well, let's add one pet with accessories in the static method `saveOne`:
+```javascript
+petSchema.static('saveOne', function(options, callback) {
+    var pet = new this();
+    pet.name = options.name;
+    pet.type = options.type;
+    pet.quantity = options.quantity;
+
+    // To add accessory, here's what need to do.
+    var accessory = new AccessoryModel();
+    accessory.name = options.accName;
+    accessory.price = options.accPrice;
+
+    pet.accessories.push(accessory);
+
+    return pet.save(callback);
+});
+```
+**NOTE:**
+    You can just leave the Accessory model alone. Just use this {name: 'some name', price: 'some price'} to push in the accessories field in pet model, it also works.
+
+Create an accessory model instance and *push* it in the pet's accessories array. And save it. After one pet with accessories saved, you may find a doc in MongoDB. It looks like this:
+```
+{
+	"_id" : ObjectId("5790c505797c1e070d2b9b37"),
+	"quantity" : 12345,
+	"type" : "1",
+	"name" : "SP3",
+	"updatedAt" : ISODate("2016-07-21T12:50:02.706Z"),
+	"updatedBy" : "admin",
+	"createdAt" : ISODate("2016-07-21T12:50:02.706Z"),
+	"createdBy" : "admin",
+	"accessories" : [
+		{
+			"_id" : ObjectId("5790c505797c1e070d2b9b38"),
+			"name" : "Some Acc",
+			"price" : 123,
+			"updatedAt" : ISODate("2016-07-21T12:50:02.698Z"),
+			"updatedBy" : "admin",
+			"createdAt" : ISODate("2016-07-21T12:50:02.698Z"),
+			"createdBy" : "admin"
+		}
+	],
+	"__v" : 0
+}
+```
+The accessory model is actually a part of the pet json. It has nothing to do with the **let join** thing.
+
+###$lookup

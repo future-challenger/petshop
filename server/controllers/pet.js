@@ -1,12 +1,23 @@
-var _       = require('lodash'),
-    utils   = require('../utils'),
-    Pet     = require('../models/pet');
+var _           = require('lodash'),
+    utils       = require('../utils'),
+    Pet         = require('../models/pet'),
+    Accessory   = require('../models/accessory').model;
 
 var postPets = function(req, res) {
     var pet = new Pet();
     pet.name = req.body.name;
     pet.type = req.body.type;
     pet.quantity = req.body.quantity;
+
+    // TODO: first ordinary obj, then a model instance.
+    // var accessory = {
+
+    // }
+    // var accessory = new Accessory();
+    // accessory.name = req.body.accName;
+    // accessory.price = req.body.accPrice;
+
+    // pet.accessories.push(accessory);
 
     // pet.save(function (err) {
     //     if (err) {
