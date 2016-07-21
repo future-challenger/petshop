@@ -28,7 +28,7 @@ var postPets = function(req, res) {
     //     res.json({message: 'done', data: pet});
     // });
 
-    var options = _.extend({}, req.query, req.body, req.params);
+    var options = _.extend({}, req.query, req.body, req.params, req.user);
     console.log(`print options extended`);
     utils.listAllKeyValues(options);
 
@@ -56,6 +56,14 @@ var getPets = function(req, res) {
     // });
 
     Pet.find({}).exec().then(function(pets) {
+        res.json({message: 'done', data: pets});
+    }).catch(function(err) {
+        res.json({message: 'error', data: err});
+    });
+};
+
+var getFullPets = function(req, res) {
+    Pet.findFull({}).exec().then(function(pets) {
         res.json({message: 'done', data: pets});
     }).catch(function(err) {
         res.json({message: 'error', data: err});
@@ -145,6 +153,7 @@ var deletePet = function(req, res) {
 module.exports = {
     postPets: postPets,
     getPets: getPets,
+    getFullPets: getFullPets,
     getPet: getPet,
     updatePet: updatePet,
     deletePet: deletePet

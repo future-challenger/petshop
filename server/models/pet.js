@@ -9,6 +9,7 @@ var petSchema = new Schema({
     name: { type: String, required: true, unique: true },
     type: { type: String, required: true },
     quantity: Number,
+    username: {type: String, required: true},
     accessories: [AccessorySchema]
 });
 
@@ -18,10 +19,12 @@ petSchema.static('anotherFindOne', function(options, callback) {
 });
 
 petSchema.static('saveOne', function(options, callback) {
-    var pet = new this();
+    var pet = new this(); // *
     pet.name = options.name;
     pet.type = options.type;
     pet.quantity = options.quantity;
+    // username as foreign key
+    pet.username = options.username;
 
     // pet.save().then(function(pet) {
     //     callback(null, pet);
@@ -35,7 +38,19 @@ petSchema.static('saveOne', function(options, callback) {
 
     pet.accessories.push(accessory);
 
-    return pet.save(callback);
+    return pet.save(callback); // return also returns the promise.
+});
+
+petSchema.static('findFull', function(options, callback) {
+    var un = options.userName;
+    return this.aggregate()/*.match({username: un})*/ // find all pets whose username field can left join users'.
+        .lookup({
+            from: 'users',
+            localField: 'username',
+            foreignField: 'username',
+            as: 'users_doc'
+        })
+        .exec(callback);
 });
 
 module.exports = mongoose.model('pet', petSchema);
