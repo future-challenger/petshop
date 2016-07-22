@@ -335,6 +335,19 @@ Then for test if it works, add a http request handler and related code in *contr
         }
       ]
     }
-    
+
 ...
+```
+You can also find how to use mongoose aggregate api. It's almost the same.
+
+But there's a problem, if i do the lookup thing like code below it does not work.
+```javascript
+    return this.aggregate({
+        $lookup: {
+            from: 'users',
+            localField: 'username',
+            foreignField: 'username',
+            as: 'users_doc'
+        }
+    }, callback);
 ```
