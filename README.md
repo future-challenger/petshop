@@ -257,3 +257,84 @@ Create an accessory model instance and *push* it in the pet's accessories array.
 The accessory model is actually a part of the pet json. It has nothing to do with the **let join** thing.
 
 ###$lookup
+Now let's find out how to do the "left outer join" `$lookup` aggregate by adding a static method in *models/pets.js* file.
+```javascript
+petSchema.static('findFull', function(options, callback) {
+    console.log('###find full method');
+}
+```
+use mongoose aggregate api in it:
+```javascript
+petSchema.static('findFull', function(options, callback) {
+    console.log('###find full method');
+    var un = options.username;
+    return this.aggregate()/*.match({username: un})*/ // find all pets whose username field can left join users'.
+        .lookup({
+            from: 'users',
+            localField: 'username',
+            foreignField: 'username',
+            as: 'users_doc'
+        });
+}
+```
+Then for test if it works, add a http request handler and related code in *controller*. Run it, you'll find results like this:
+```
+...
+
+    {
+      "_id": "5790c505797c1e070d2b9b37",
+      "quantity": 12345,
+      "type": "1",
+      "name": "SP3",
+      "updatedAt": "2016-07-21T12:50:02.706Z",
+      "updatedBy": "admin",
+      "createdAt": "2016-07-21T12:50:02.706Z",
+      "createdBy": "admin",
+      "accessories": [
+        {
+          "_id": "5790c505797c1e070d2b9b38",
+          "name": "Some Acc",
+          "price": 123,
+          "updatedAt": "2016-07-21T12:50:02.698Z",
+          "updatedBy": "admin",
+          "createdAt": "2016-07-21T12:50:02.698Z",
+          "createdBy": "admin"
+        }
+      ],
+      "__v": 0,
+      "users_doc": []
+    },
+    {
+      "_id": "5790f0acbfe8010e17625b1c",
+      "username": "jack",
+      "quantity": 12345,
+      "type": "1",
+      "name": "SP4",
+      "updatedAt": "2016-07-21T15:56:24.462Z",
+      "updatedBy": "admin",
+      "createdAt": "2016-07-21T15:56:24.462Z",
+      "createdBy": "admin",
+      "accessories": [
+        {
+          "_id": "5790f0acbfe8010e17625b1d",
+          "name": "Some Acc",
+          "price": 123,
+          "updatedAt": "2016-07-21T15:56:24.454Z",
+          "updatedBy": "admin",
+          "createdAt": "2016-07-21T15:56:24.454Z",
+          "createdBy": "admin"
+        }
+      ],
+      "__v": 0,
+      "users_doc": [
+        {
+          "_id": "5775c580f84a06e9fc025669",
+          "username": "jack",
+          "password": "$2a$05$gEdQimZ/FW8d7fILYpinKOIc3yVF0HV/rtVl/ptzVErUU82.UkFpa",
+          "__v": 0
+        }
+      ]
+    }
+    
+...
+```
