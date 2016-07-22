@@ -11,6 +11,7 @@ var petSchema = new Schema({
     quantity: Number,
     username: {type: String, required: true},
     accessories: [AccessorySchema]
+    // ,user: { type: mongoose.Schema.Types.ObjectId, ref: 'users' }
 });
 
 petSchema.static('anotherFindOne', function(options, callback) {
@@ -42,15 +43,27 @@ petSchema.static('saveOne', function(options, callback) {
 });
 
 petSchema.static('findFull', function(options, callback) {
-    var un = options.userName;
+    console.log('###find full method');
+    var un = options.username;
     return this.aggregate()/*.match({username: un})*/ // find all pets whose username field can left join users'.
         .lookup({
             from: 'users',
             localField: 'username',
             foreignField: 'username',
             as: 'users_doc'
-        })
-        .exec(callback);
+        });
+    //     .exec(callback);
+
+    // return this.aggregate({
+    //     $lookup: {
+    //         from: 'users',
+    //         localField: 'username',
+    //         foreignField: 'username',
+    //         as: 'users_doc'
+    //     }
+    // }, callback);
+
+    // return this.find({}).populate('users').exec(callback);
 });
 
 module.exports = mongoose.model('pet', petSchema);

@@ -48,7 +48,8 @@ router.route('/pets/:pet_id')
     .put(authController.isAuthenticated, petController.updatePet)
     .delete(authController.isAuthenticated, petController.deletePet);
 
-router.get('/pets/full', petController.getFullPets);
+router.route('/pets/full/:pet_id')
+    .get(authController.isAuthenticated, petController.getFullPets);
 
 // path: /users, for users
 router.route('/users')

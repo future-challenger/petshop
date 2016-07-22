@@ -63,6 +63,8 @@ var getPets = function(req, res) {
 };
 
 var getFullPets = function(req, res) {
+    console.log('get full pets');
+    // var options = _.extend({}, req.query, req.body, req.params, req.user);
     Pet.findFull({}).exec().then(function(pets) {
         res.json({message: 'done', data: pets});
     }).catch(function(err) {
