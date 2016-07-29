@@ -355,7 +355,9 @@ But there's a problem, if i do the lookup thing like code below it does not work
 ##Let's Ghostify this site
 Petshop server is now in typical `MVC` pattern. But it is now well refined. Ghost is one of the best sites based on `Express`, so let's see what we can do with it.
 ### What now Petshop look like
+It's `MVC` text book. Models are all in *models* folder, Controllers are all in *controllers* folder. There's no view, because this is a API server.
 
+Then all stuff are all put together in *server.js* file to get every thing works. Although there's not much "requirement" to deal with, *server.js* already included lots of code in it.
 
 ### Ghostify petshop
 First, let's move the **routes** thing from *server.js* to *server/controllers/index.js* file. Of course first to create this file.
