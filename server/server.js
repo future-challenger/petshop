@@ -45,7 +45,8 @@ function boo(req, res) {
 // 给路由设定根路径为/api
 // TODO: this api fucntion's parameter is empty
 app.use(routes.apiBaseUri, routes.api({}));
+
 // 运行server，并监听指定的端口
-app.listen(port, function () {
+var httpServer = app.listen(port, function () {
     console.log('server is running at http://localhost:3090');
 });

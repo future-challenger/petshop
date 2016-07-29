@@ -397,3 +397,35 @@ module.exports = {
 };
 ```
 **NOTICE**: the api base url is also exported out.
+
+Refactor *server.js*, accordingly change this file to make it work:
+```javascript
+// 引入我们需要的包express
+var express             = require('express'),
+
+    ...
+
+    routes              = require('./controllers');
+
+// 创建一个express的server
+var app = express();
+
+// 连接数据库
+mongoose.connect('mongodb://localhost:27017/petshot');
+
+// server运行的端口号
+var port = process.env.PORT || '3090';
+
+...
+
+// 给路由设定根路径为/api
+// TODO: this api fucntion's parameter is empty
+app.use(routes.apiBaseUri, routes.api({}));
+
+// 运行server，并监听指定的端口
+var httpServer = app.listen(port, function () {
+    console.log('server is running at http://localhost:3090');
+});
+```
+
+Import *controllers*, *index.js* file in that folder is imported automatically, then use `routes` function to return the `router` in it. It's DONE!
