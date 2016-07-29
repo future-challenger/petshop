@@ -42,9 +42,6 @@ function boo(req, res) {
     res.send('yo');
 }
 
-// WARNING: this is just for test
-router.route('/test').get([foo, boo]);
-
 // 给路由设定根路径为/api
 // TODO: this api fucntion's parameter is empty
 app.use(routes.apiBaseUri, routes.api({}));

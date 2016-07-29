@@ -1,20 +1,20 @@
 
 var express             = require('express'),
 
-    petController       = require('./controllers/pet'),
-    userController      = require('./controllers/user'),
-    authController      = require('./controllers/auth'),
-    clientController    = require('./controllers/client'),
-    oauth2Controller    = require('./controllers/oauth2')
+    petController       = require('./pet'),
+    userController      = require('./user'),
+    authController      = require('./auth'),
+    clientController    = require('./client'),
+    oauth2Controller    = require('./oauth2'),
 
     apiRoutes;
 
 apiRoutes = function(middleware) {
     var router = express.Router();
 
-    router.get('/', function (req, res) {
-        res.json({'message': '欢迎来到宠物商店'});
-    });
+    // router.get('/', function (req, res) {
+    //     res.json({'message': '欢迎来到宠物商店'});
+    // });
 
     router.route('/pets')
         .post(authController.isAuthenticated, petController.postPets)
@@ -49,6 +49,6 @@ apiRoutes = function(middleware) {
 };
 
 module.exports = {
-    apiBaseUri: 'api/v1/',
+    apiBaseUri: '/api/v1/',
     api: apiRoutes
 };
