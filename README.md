@@ -353,3 +353,4 @@ But there's a problem, if i do the lookup thing like code below it does not work
 ```
 
 ##Let's Ghostify this site
+Petshop server is now in typical `MVC` pattern. But it is now well refined. Ghost is one of the best sites based on `Express`, so let's see what we can do with it.
