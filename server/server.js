@@ -6,11 +6,7 @@ var express             = require('express'),
     ejs                 = require('ejs'),
     session             = require('express-session'),
 
-    petController       = require('./controllers/pet'),
-    userController      = require('./controllers/user'),
-    authController      = require('./controllers/auth'),
-    clientController    = require('./controllers/client'),
-    oauth2Controller    = require('./controllers/oauth2');
+    routes              = require('./controllers');
 
 // 创建一个express的server
 var app = express();
@@ -31,42 +27,6 @@ mongoose.connect('mongodb://localhost:27017/petshot');
 
 // server运行的端口号
 var port = process.env.PORT || '3090';
-// 使用express的路由器
-var router = express.Router();
-// 访问http://localhost:3090/api的时候，
-// 返回一个json
-router.get('/', function (req, res) {
-    res.json({'message': '欢迎来到宠物商店'});
-});
-
-router.route('/pets')
-    .post(authController.isAuthenticated, petController.postPets)
-    .get(authController.isAuthenticated, petController.getPets);
-
-router.route('/pets/:pet_id')
-    .get(authController.isAuthenticated, petController.getPet)
-    .put(authController.isAuthenticated, petController.updatePet)
-    .delete(authController.isAuthenticated, petController.deletePet);
-
-router.route('/pets/full/:pet_id')
-    .get(authController.isAuthenticated, petController.getFullPets);
-
-// path: /users, for users
-router.route('/users')
-    .post(userController.postUsers)
-    .get(authController.isAuthenticated, userController.getUsers);
-
-// 处理 /clients
-router.route('/clients')
-    .post(authController.isAuthenticated, clientController.postClients)
-    .get(authController.isAuthenticated, clientController.getClients);
-
-router.route('/oauth2/authorize')
-    .post(authController.isAuthenticated, oauth2Controller.decision)
-    .get(authController.isAuthenticated, oauth2Controller.authorization);
-
-router.route('/oauth2/token')
-    .post(authController.isClientAuthenticated, oauth2Controller.token);
 
 // 测试一下多个方法处理http请求
 function foo(req, res, next) {
@@ -82,10 +42,12 @@ function boo(req, res) {
     res.send('yo');
 }
 
+// WARNING: this is just for test
 router.route('/test').get([foo, boo]);
 
 // 给路由设定根路径为/api
-app.use('/api', router);
+// TODO: this api fucntion's parameter is empty
+app.use(routes.apiBaseUri, routes.api({}));
 // 运行server，并监听指定的端口
 app.listen(port, function () {
     console.log('server is running at http://localhost:3090');

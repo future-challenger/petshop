@@ -354,3 +354,5 @@ But there's a problem, if i do the lookup thing like code below it does not work
 
 ##Let's Ghostify this site
 Petshop server is now in typical `MVC` pattern. But it is now well refined. Ghost is one of the best sites based on `Express`, so let's see what we can do with it.
+
+First, let's move the **routes** thing from *server.js* to *server/controllers/index.js* file. Of course first to create this file.
