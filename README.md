@@ -362,6 +362,11 @@ Then all stuff are all put together in *server.js* file to get every thing works
 ### Ghostify petshop
 First, let's move the **routes** thing from *server.js* to *server/controllers/index.js* file. Of course first to create this file.
 Second, create `express.Router()` in the just created *controllers/index.js* file and return it in a function, which will exported out.
+
+```
+express.Router() object is used to get all paths and related handler combined. Then use it in an Express app. No matter we put "router" the jobs it will do is combine routes and related handler, and it will be used in an Express app.
+```
+
 ```javascript
 var express             = require('express'),
 
@@ -429,3 +434,62 @@ var httpServer = app.listen(port, function () {
 ```
 
 Import *controllers*, *index.js* file in that folder is imported automatically, then use `routes` function to return the `router` in it. It's DONE!
+
+### Move middleware away
+`Express` has lots of middlewares, middlewares will increase when this app is developing. 
+
+Create a directory *serer/middleware* and *index.js* in it. All middleware setup code will be here.
+```javascript
+var bodyParser          = require('body-parser'),
+    passport            = require('passport'),
+    ejs                 = require('ejs'),
+    session             = require('express-session'),
+    routes              = require('../controllers'),
+
+    setupMiddleware;
+    
+
+setupMiddleware = function(apiApp) {
+
+    apiApp.set('view engine', 'ejs');
+
+    apiApp.use(bodyParser.urlencoded({
+        extended: true
+    }));
+
+    apiApp.use(session({
+        secret: 'a4f8071f-4447-c873-8ee2',
+        saveUninitialized: true,
+        resave: true
+    }));
+
+    apiApp.use(routes.apiBaseUri, routes.api({}));
+}
+
+module.exports = setupMiddleware;
+```
+Well, code in *serverl.js* has do be refactored.
+```javascript
+// 引入我们需要的包express
+var express             = require('express'),
+    mongoose            = require('mongoose'),
+    setupMiddleware     = require('./middleware'),
+    routes              = require('./controllers');
+
+// 创建一个express的server
+var app = express();
+
+// 连接数据库
+mongoose.connect('mongodb://localhost:27017/petshot');
+
+// server运行的端口号
+var port = process.env.PORT || '3090';
+
+setupMiddleware(app);
+
+// 运行server，并监听指定的端口
+var httpServer = app.listen(port, function () {
+    console.log('server is running at http://localhost:3090');
+});
+```
+*server.js* is much more shorter.
