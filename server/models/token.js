@@ -7,4 +7,6 @@ var tokenSchema = new Schema({
     clientId: {type: String, required: true}
 });
 
-module.exports = mongoose.model('token', tokenSchema);
+module.exports = {
+    Token: mongoose.model('token', tokenSchema)
+};

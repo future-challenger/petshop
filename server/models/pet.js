@@ -66,4 +66,6 @@ petSchema.static('findFull', function(options, callback) {
     // return this.find({}).populate('users').exec(callback);
 });
 
-module.exports = mongoose.model('pet', petSchema);
+module.exports = {
+    Pet: mongoose.model('pet', petSchema)
+};

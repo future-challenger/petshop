@@ -8,4 +8,6 @@ var codeSchema = new Schema({
     clientId: {type: String, required: true}
 });
 
-module.exports = mongoose.model('code', codeSchema);
+module.exports = {
+    Code: mongoose.model('code', codeSchema)
+};

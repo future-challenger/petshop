@@ -7,4 +7,6 @@ var clientSchema = new mongoose.BaseSchema({
     userId: {type: String, required: true}
 });
 
-module.exports = mongoose.model('client', clientSchema);
+module.exports = {
+    Client: mongoose.model('client', clientSchema)
+};
