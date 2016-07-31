@@ -1,7 +1,14 @@
+/**
+ * Routes here. 
+ * This is where HTTP request and related handler a combined together.
+ */
 
 var express             = require('express'),
 
+    api                 = require('./api'),
+
     petController       = require('./pet'),
+    petApi              = require('./pets'),
     userController      = require('./user'),
     authController      = require('./auth'),
     clientController    = require('./client'),
@@ -18,7 +25,7 @@ apiRoutes = function(middleware) {
 
     router.route('/pets')
         .post(authController.isAuthenticated, petController.postPets)
-        .get(authController.isAuthenticated, petController.getPets);
+        .get(authController.isAuthenticated, api.http(petApi.browse));
 
     router.route('/pets/:pet_id')
         .get(authController.isAuthenticated, petController.getPet)

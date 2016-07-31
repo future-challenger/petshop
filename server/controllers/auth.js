@@ -4,9 +4,9 @@ var Promise = require('bluebird'),
     BearerStrategy = require('passport-http-bearer').Strategy,
     // ClientPasswordStrategy = require('passport-oauth2-client-password').
 
-    User = require('../models/user'),
-    Client = require('../models/client'),
-    Token = require('../models/token');
+    dataProvider = require('../models');
+    // Client = require('../models/client'),
+    // Token = require('../models/token');
 
 passport.use(new BasicStrategy(
     function (username, password, done) {
@@ -54,7 +54,7 @@ passport.use(new BasicStrategy(
         //     return done(err);
         // });
 
-        User.findOne({ username: username }).exec().then(function (u) {
+        dataProvider.User.findOne({ username: username }).exec().then(function (u) {
             if (!u) {
                 done(null, false);
                 return;
@@ -99,7 +99,7 @@ passport.use('client-basic', new BasicStrategy(
         //     return done(err);
         // });
 
-        Client.findOne({id: username}).exec().then(function(c) {
+        dataProvider.Client.findOne({id: username}).exec().then(function(c) {
             if (!c || c.secret !== password) {
                 done(null, false);
             } else {
@@ -150,7 +150,7 @@ passport.use(new BearerStrategy(
         // });
 
         console.log('bearer auth');
-        var token = Promise.promisifyAll(Token);
+        var token = Promise.promisifyAll(dataProvider.Token);
         var user = Promise.promisifyAll(User);
         token.findOneAsync({ value: accessToken }).then(function (t) {
             if (!t) {

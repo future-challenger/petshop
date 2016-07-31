@@ -15,7 +15,7 @@ models = [
 ];
 
 function init() {
-    exports.Base = require('/base');
+    exports.Base = require('./base');
 
     models.forEach(function(name) {
         _.extend(exports, require('./' + name));
@@ -23,4 +23,4 @@ function init() {
 }
 
 // exports.init = init;
-exports.init = init();
+exports.init = init;
