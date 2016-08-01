@@ -1,7 +1,7 @@
-var Client = require('../models/client');
+var dataProvider = require('../models/client');
 
 var postClients = function(req, res) {
-    var client = new Client();
+    var client = new dataProvider.Client();
 
     client.name = req.body.name;
     client.id = req.body.id;
@@ -33,7 +33,7 @@ var getClients = function(req, res) {
     //     res.json({message: 'done', data: clients});
     // });
 
-    Client.find({userId: req.user._id}).exec().then(function(clients) {
+    dataProvider.Client.find({userId: req.user._id}).exec().then(function(clients) {
         res.json({message: 'done', data: clients});
     }).catch(function(err) {
         res.json({messag: 'error', data: err});
