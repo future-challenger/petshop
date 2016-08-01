@@ -1,10 +1,10 @@
-var _           = require('lodash'),
-    utils       = require('../utils'),
-    Pet         = require('../models/pet'),
-    Accessory   = require('../models/accessory').model;
+var _               = require('lodash'),
+    utils           = require('../utils'),
+    dataProvider    = require('../models/pet'),
+    Accessory       = require('../models/accessory').model;
 
 var postPets = function(req, res) {
-    var pet = new Pet();
+    var pet = new dataProvider.Pet();
     pet.name = req.body.name;
     pet.type = req.body.type;
     pet.quantity = req.body.quantity;
@@ -38,7 +38,7 @@ var postPets = function(req, res) {
     //     res.json({message: 'error', data: err});
     // });
 
-    Pet.saveOne(options).then(function(pet) {
+    dataProvider.Pet.saveOne(options).then(function(pet) {
         res.json({message: 'done', data: pet});
     }).catch(function(err) {
         res.json({message: 'error', data: err});
@@ -55,7 +55,7 @@ var getPets = function(req, res) {
     //     res.json({message: 'done', data: pets});
     // });
 
-    Pet.find({}).exec().then(function(pets) {
+    dataProvider.Pet.find({}).exec().then(function(pets) {
         res.json({message: 'done', data: pets});
     }).catch(function(err) {
         res.json({message: 'error', data: err});
@@ -65,7 +65,7 @@ var getPets = function(req, res) {
 var getFullPets = function(req, res) {
     console.log('get full pets');
     // var options = _.extend({}, req.query, req.body, req.params, req.user);
-    Pet.findFull({}).exec().then(function(pets) {
+    dataProvider.Pet.findFull({}).exec().then(function(pets) {
         res.json({message: 'done', data: pets});
     }).catch(function(err) {
         res.json({message: 'error', data: err});
@@ -99,7 +99,7 @@ var getPet = function(req, res) {
 
 
 
-    Pet.anotherFindOne({'_id': req.params.pet_id}).exec().then(function(pet) {
+    dataProvider.Pet.anotherFindOne({'_id': req.params.pet_id}).exec().then(function(pet) {
         res.json({message: 'done', data: pet});
     }).catch(function(err) {
         res.json({message: 'error', data: err});
@@ -125,7 +125,7 @@ var updatePet = function(req, res) {
     //     });
     // });
 
-    Pet.findById(req.params.pet_id).then(function(p) {
+    dataProvider.Pet.findById(req.params.pet_id).then(function(p) {
         p.quantity = req.params.quantity;
         return p.save();
     }).then(function(p){
@@ -145,7 +145,7 @@ var deletePet = function(req, res) {
     //     res.json({message: 'done', data: {}});
     // });
 
-    Pet.findByIdAndRemove(req.params.pet_id).then(function(){
+    dataProvider.Pet.findByIdAndRemove(req.params.pet_id).then(function(){
         res.json({message: 'done', data: {}});
     }).catch(function(err) {
         res.json({message: 'error', data: err});
