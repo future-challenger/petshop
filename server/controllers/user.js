@@ -1,7 +1,7 @@
-var User = require('../models/user');
+var dataProvider = require('../models/user');
 
 var postUsers = function (req, res) {
-    var user = new User({
+    var user = new dataProvider.User({
         username: req.body.username,
         password: req.body.password
     });

@@ -493,3 +493,70 @@ var httpServer = app.listen(port, function () {
 });
 ```
 *server.js* is much more shorter.
+
+
+### Ghostify -- APIs
+Before, all HTTP request handler is in *server/controllers* directory. `Controllers` in this directory all have HTTP request input as `req` and and response `res` object. Actually, these two object has nothing to do with how `Petshop` deal with HTTP request.
+
+Now refactor this code like what `Ghost` did, seperate `req` and `res` objects and code which is used to access MongoDB.
+
+####First
+The most basic thing is to refactor code in *server/models* code. Modules in this directory is required individually by other modules like:
+```javascript
+var User = require('../models/user');
+```
+Now all modules in this directory will be exported all together. Other modules can require models like:
+```javascript
+var dataProvider = require('./models');
+...
+dataProvider.User.find({});
+...
+```
+create a file named *index.js* in *server/models* directory, and all models will be exported like this:
+```javascript
+var _       = require('lodash'),
+
+    exports,
+    models;
+
+exports = module.exports;
+
+models = [
+    'accessory',
+    'client',
+    'code',
+    'pet',
+    'token',
+    'user'
+];
+
+function init() {
+    exports.Base = require('./base');
+
+    models.forEach(function(name) {
+        _.extend(exports, require('./' + name));
+    });
+}
+
+// exports.init = init;
+exports.init = init;
+```
+When the exported `init` method is called, all models defined in this directory is in the `export` object.
+
+Still, a glance to how models is refactored is needed:
+```javascript
+// Before
+module.exports = mongoose.model('User', userSchema);
+
+// Now 
+module.exports = {
+    User: mongoose.model('User', userSchema)
+};
+```
+This is why models can be used as `dataProvider.User.xxx()`;
+
+####How we deal with "models"
+Models are just mapping to Database "tables" (collections in MongoDB). They have simple method to create, update or delete records (documnts). They can not used to 
+
+####What about the req and res objects?
+If your API is not just return the most famous words "Hello World!" to clients, you will have to consider HTTP request parameters. These parameters may be in a query string, a posted form or even an uploaded file.
