@@ -7,7 +7,7 @@ var bodyParser          = require('body-parser'),
     setupMiddleware;
     
 
-setupMiddleware = function(apiApp) {
+setupMiddleware = function(apiApp, adminApp) {
 
     apiApp.set('view engine', 'ejs');
 
@@ -22,6 +22,9 @@ setupMiddleware = function(apiApp) {
     }));
 
     apiApp.use(routes.apiBaseUri, routes.api({}));
+
+    // TODO: add adminApp's middlewares later
+    apiApp.use('/admin', adminApp);
 }
 
 module.exports = setupMiddleware;
