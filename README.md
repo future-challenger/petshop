@@ -558,8 +558,43 @@ This is why models can be used as `dataProvider.User.xxx()`;
 ####How we deal with "models"
 Models are just mapping to Database "tables" (collections in MongoDB). They have simple method to create, update or delete records (documnts). So business logic can be build on models. The business logic code has is decoupled from HTTP requests and models. This part code can be called `api`.
 
-So we create a *api.js* file in *server/controller* directory. As now business logic are easy, one file is enough. If code keep increasing, a directory is needed.
- 
+So we create a *api.js* file in *server/controller* directory. As now business logic are easy, one file is enough. If code keep increasing, a directory is needed. This `api` module is used to wrap all HTTP requests and will be detailed in next section. Now the business logic section can be used to deal with models. And the old models "classes" have to be refactored.
+```javascript
+// old code
+var getPets = function(req, res) {
+    dataProvider.Pet.find({}).exec().then(function(pets) {
+        res.json({message: 'done', data: pets});
+    }).catch(function(err) {
+        res.json({message: 'error', data: err});
+    });
+};
+```
+As we already put `req` and `res` code away, we can focus on the "business logic" thing.
+```javascript
+// new code
+pets = {
+    browse: function(options) {
+        function queryModel(options) {
+            var conditions = {}; // I'm going to find all pets.
+            return dataProvider.Pet.find(conditions);
+        }
+
+        return queryModel(options);
+    },
+
+    add: function add(object, options) {
+        function queryModel(options) {
+            return dataProvider.Pet.saveOne(options);
+        }
+    }
+};
+
+// export an object out.
+module.exports = pets;
+```
+`options` is the wrapped `req` and `res` object. You can see methods `browse` and `add` all focused on how to select or add a model with input `options`. And you dont have to care about where exactly options come and what it is.
+
+All these methods return a `Promise` object. These objects will be used in the `api` module.
 
 ####What about the req and res objects?
 If your API is not just return the most famous words "Hello World!" to clients, you will have to consider HTTP request parameters. These parameters may be in a query string, a posted form or even an uploaded file.
