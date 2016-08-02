@@ -597,4 +597,52 @@ module.exports = pets;
 All these methods return a `Promise` object. These objects will be used in the `api` module.
 
 ####What about the req and res objects?
-If your API is not just return the most famous words "Hello World!" to clients, you will have to consider HTTP request parameters. These parameters may be in a query string, a posted form or even an uploaded file.
+If your API is not just return the most famous words "Hello World!" to clients, you will have to consider HTTP request parameters. These parameters may be in a query string, a posted form or even an uploaded file. The `api` module will wrap them all together in two objects, one is for `POST` (and `PUT`, `DELETE`, etc) object and the other one is for `GET` request. When these two objects are read, send them to "business logic" code, then send the result to client. 
+```javascript
+var _       = require('lodash'),
+    Promise = require('bluebird'),
+
+    init,
+    http;
+
+init = function init() {
+    // do some initialization
+}
+
+http = function(apiMethod) {
+    return function apiHandler(req, res, next) {
+        var object = req.body,
+            options = _.extend({}, /*req,file, */req.query, req.params, {
+                context: {
+                    user: ((req.user && req.user.id) || (req.user && req.user.id === 0)) ? 
+                        req.user.id : null
+                }
+            })
+
+        // If this is a GET, or a DELETE, req.body should be null, so we only have options (route and query params)
+        // If this is a PUT, POST, or PATCH, req.body is an object
+        if (_.isEmpty(object)) {
+            object = options;
+            options = {};
+        }
+
+        console.log(`###API METHOD ${apiMethod}`);
+
+        return apiMethod(object, options).then(function(response) {
+            // Send different content to client according to "Context-Type"
+            // Now just send json to client
+            res.json(response || {});
+        }).catch(function onError(error) {
+            next(error);
+        });
+    };
+};
+
+module.exports = {
+    init: init,
+    http: http
+}
+```
+Now we dont do anything in `init` method. 
+
+API method is a parameter for the `http` method, so the wrapped `req` and `res` object can be passed to the API method as parameters. As metioned before, the API method will return a Promise object, which is thenable. In the `then` method models will return to client in `JSON` or if anything went wrong, error message will be returned.
