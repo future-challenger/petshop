@@ -556,7 +556,10 @@ module.exports = {
 This is why models can be used as `dataProvider.User.xxx()`;
 
 ####How we deal with "models"
-Models are just mapping to Database "tables" (collections in MongoDB). They have simple method to create, update or delete records (documnts). They can not used to 
+Models are just mapping to Database "tables" (collections in MongoDB). They have simple method to create, update or delete records (documnts). So business logic can be build on models. The business logic code has is decoupled from HTTP requests and models. This part code can be called `api`.
+
+So we create a *api.js* file in *server/controller* directory. As now business logic are easy, one file is enough. If code keep increasing, a directory is needed.
+ 
 
 ####What about the req and res objects?
 If your API is not just return the most famous words "Hello World!" to clients, you will have to consider HTTP request parameters. These parameters may be in a query string, a posted form or even an uploaded file.
