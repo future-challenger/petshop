@@ -1,6 +1,6 @@
 var bodyParser          = require('body-parser'),
     passport            = require('passport'),
-    ejs                 = require('ejs'),
+    // ejs                 = require('ejs'),
     session             = require('express-session'),
     routes              = require('../controllers'),
 
@@ -9,7 +9,7 @@ var bodyParser          = require('body-parser'),
 
 setupMiddleware = function(apiApp, adminApp) {
 
-    apiApp.set('view engine', 'ejs');
+    // apiApp.set('view engine', 'ejs');
 
     apiApp.use(bodyParser.urlencoded({
         extended: true

@@ -1,4 +1,4 @@
-var dataProvider = require('../models/user');
+var dataProvider = require('../models');
 
 var postUsers = function (req, res) {
     var user = new dataProvider.User({

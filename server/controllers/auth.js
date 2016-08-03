@@ -70,6 +70,7 @@ passport.use(new BasicStrategy(
                 }
             });
         }).catch(function (err) {
+            console.log(`###AUTH ERROR:- ${err}`);
             done(err);
         });
     }

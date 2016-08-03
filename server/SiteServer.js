@@ -60,3 +60,5 @@ SiteServer.prototype.stop = function() {
 SiteServer.prototype.restart = function() {
     return this.stop().then(this.start.bind(this));
 };
+
+module.exports = SiteServer;

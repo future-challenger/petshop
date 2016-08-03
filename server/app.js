@@ -1,5 +1,6 @@
 var Promise     = require('bluebird'),
     express     = require('express'),
+    mongoose    = require('mongoose'),
     hbs         = require('express-hbs'),
     SiteServer  = require('./SiteServer'),
     models      = require('./models'),
@@ -14,6 +15,9 @@ init = function init() {
 
     // TODO: the first promise should be configuration.
     return Promise.resolve().then(function() {
+        // TODO: configure this connection string.
+        mongoose.connect('mongodb://localhost:27017/petshot');
+    }).then(function() {
         models.init();
     }).then(function() {
         api.init();
@@ -40,5 +44,5 @@ init().then(function(siteServer) {
     siteServer.start(parentApp);
 }).catch(function(err) {
     // TODO: log error
-    console.log('Server start error');
+    console.log(`Server start error ${err}`);
 });
