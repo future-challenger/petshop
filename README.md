@@ -646,3 +646,89 @@ module.exports = {
 Now we dont do anything in `init` method. 
 
 API method is a parameter for the `http` method, so the wrapped `req` and `res` object can be passed to the API method as parameters. As metioned before, the API method will return a Promise object, which is thenable. In the `then` method models will return to client in `JSON` or if anything went wrong, error message will be returned.
+
+
+###Refactor server.js
+In *server.js* we do something sequently, connecting to mongoDb, initializing models and api modules, and at last catch any error in server and print it out.
+
+How to refactor this? The best way to keep things executed sequently is to set these steps into `Promise` thenables. The *server.js* 's alread been refactored to move all coupled code to modules where they should be in. It now looks like this:
+```javascript
+var express             = require('express'),
+    Promise             = require('bluebird'),
+    mongoose            = require('mongoose'),
+    api                 = require('./controllers/api'),
+    models              = require('./models'),
+    setupMiddleware     = require('./middleware'),
+    routes              = require('./controllers');
+
+var app = express();
+
+mongoose.connect('mongodb://localhost:27017/petshot');
+
+var port = process.env.PORT || '3090';
+
+// Sequently executed tasks.
+Promise.resolve().then(function() {
+    models.init();
+}).then(function() {
+    api.init();
+}).then(function(){
+    setupMiddleware(app);
+}).catch(function(err) {
+    console.log(`###error ${err}`);
+});
+
+var httpServer = app.listen(port, function () {
+    console.log('server is running at http://localhost:3090');
+});
+```
+This is not enough. One more thing we need to consider is that an admin site is needed too. So the API app will be mounted by an external APP and the admin APP will be mounted by api APP. In general it's like this `External APP` -> `API APP` -> `Admin APP`.
+```javascript
+var parentApp = express();
+
+// TODO: parentApp.use('path', app), path should be moved in configuration file.
+init().then(function(siteServer) {
+    parentApp.use('/', siteServer.rootApp);
+
+    siteServer.start(parentApp);
+}).catch(function(err) {
+    // TODO: log error
+    console.log(`Server start error ${err}`);
+});
+```
+`parentApp` is the external app to mount APIs. And this is the beginning to start the refactor thing.
+
+`init()` method will get api app ready to be mounted, and the api app will be returnd in a Promise which is returned by `init` method.
+
+What's going on in the `init()` method:
+```javascript
+init = function init() {
+    var shopApiApp = express(), // API
+        adminApp = express();   // Admin site
+
+    // TODO: the first promise should be configuration.
+    return Promise.resolve().then(function() {
+        // TODO: configure this connection string.
+        mongoose.connect('mongodb://localhost:27017/petshot');
+    }).then(function() {
+        models.init();
+    }).then(function() {
+        api.init();
+    }).then(function() {
+        adminHbs = hbs.create();
+
+        shopApiApp.set('view engin', hbs);
+        adminApp.set('view engin', hbs);
+        adminApp.engine('hbs', adminHbs.express3({}));
+
+        middleware(shopApiApp, adminApp);
+
+        return new SiteServer(shopApiApp);
+    })
+};
+```
+**API APP** and **admin APP** are initialized here. 
+
+Then the Promise wich will be returned. In the promise, all initialization tasks of different modules are sequently executed.
+
+Let's take a look at the `SiteServer`. In this "class", api app is used as a contructor parameter, and it will be used to initialize a member named `rootApp`. In the `start(externalApp)` method, an express app will be used to mount api app. Add some log thing will be set here.
