@@ -26,7 +26,7 @@ init = function init() {
 
         shopApiApp.set('view engin', hbs);
         adminApp.set('view engin', hbs);
-        adminApp.engine('hbs', adminHbs.express3({}));
+        adminApp.engine('hbs', adminHbs.express4({}));
 
         middleware(shopApiApp, adminApp);
 
