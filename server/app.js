@@ -31,7 +31,7 @@ init = function init() {
         middleware(shopApiApp, adminApp);
 
         return new SiteServer(shopApiApp);
-    })
+    });
 };
 
 // module.exports = init;
