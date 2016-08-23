@@ -24,9 +24,10 @@ init = function init() {
     }).then(function() {
         adminHbs = hbs.create();
 
-        shopApiApp.set('view engin', hbs);
-        adminApp.set('view engin', hbs);
+        shopApiApp.set('view engin', 'hbs');
+        adminApp.set('view engin', 'hbs');
         adminApp.engine('hbs', adminHbs.express4({}));
+        adminApp.set('views', __dirname + 'petshop-admin/views');
 
         middleware(shopApiApp, adminApp);
 
