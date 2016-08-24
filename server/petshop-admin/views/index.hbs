@@ -14,8 +14,42 @@
 
 <body>
     <div id="example"></div>
+    <div id="content"></div>
     <script type="text/babel">
+        
+        var CommentList = React.createClass({
+            render: function() {
+                return (
+                    <div className="commentList">
+                        Hello, world! I am a CommentList.
+                    </div>
+                );
+            }
+        });
 
+        var CommentForm = React.createClass({
+            render: function() {
+                return (
+                    <div className="commentForm">
+                        Hello, this is a comment form.
+                    </div>
+                );
+            }
+        });
+
+        var CommentBox = React.createClass({
+            render: function() {
+                return (
+                    <div className="commentBox">
+                        <h1>CommentBox</h1>
+                        <CommentList />
+                        <CommentForm />
+                    </div>
+                );
+            }
+        });
+
+        ReactDOM.render(<CommentBox />, document.getElementById('content'));
     </script>
 </body>
 <script type="text/babel" src="admin/public/helloworld.js"></script>
