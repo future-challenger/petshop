@@ -3,6 +3,7 @@ var bodyParser          = require('body-parser'),
     // ejs                 = require('ejs'),
     session             = require('express-session'),
     routes              = require('../controllers'),
+    frontendRoutes      = require('../routes/frontend'),
 
     setupMiddleware;
     
@@ -24,6 +25,8 @@ setupMiddleware = function(apiApp, adminApp) {
     apiApp.use(routes.apiBaseUri, routes.api({}));
 
     // TODO: add adminApp's middlewares later
+    adminApp.use('/', frontendRoutes());
+
     apiApp.use('/admin', adminApp);
 }
 

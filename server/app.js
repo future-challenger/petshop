@@ -24,9 +24,11 @@ init = function init() {
     }).then(function() {
         adminHbs = hbs.create();
 
-        shopApiApp.set('view engin', 'hbs');
-        adminApp.set('view engin', 'hbs');
-        adminApp.engine('hbs', adminHbs.express4({}));
+        shopApiApp.set('view engine', 'hbs');
+        adminApp.set('view engine', 'hbs');
+        adminApp.engine('hbs', adminHbs.express4({
+            partialsDir: __dirname + 'petshop-admin/views/partials'
+        }));
         adminApp.set('views', __dirname + 'petshop-admin/views');
 
         middleware(shopApiApp, adminApp);
