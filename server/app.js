@@ -25,11 +25,16 @@ init = function init() {
         adminHbs = hbs.create();
 
         shopApiApp.set('view engine', 'hbs');
+
+        // Admin app views and statics
         adminApp.set('view engine', 'hbs');
         adminApp.engine('hbs', adminHbs.express4({
-            partialsDir: __dirname + 'petshop-admin/views/partials'
+            partialsDir: __dirname + '/petshop-admin/views/partials'
         }));
-        adminApp.set('views', __dirname + 'petshop-admin/views');
+        adminApp.set('views', __dirname + '/petshop-admin/views');
+
+        console.log(`ADMIN PUBLIC:- ${__dirname}/petshop-admin/public`)
+        adminApp.use('/public', express.static(`${__dirname}/petshop-admin/public`));
 
         middleware(shopApiApp, adminApp);
 
