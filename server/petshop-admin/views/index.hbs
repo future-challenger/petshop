@@ -16,12 +16,39 @@
     <div id="example"></div>
     <div id="content"></div>
     <script type="text/babel">
+        // tutorial8.js
+        var data = [
+            {id: 1, author: "Pete Hunt", text: "This is one comment"},
+            {id: 2, author: "Jordan Walke", text: "This is *another* comment"}
+        ];
+
+        var Comment = React.createClass({
+            render: function() {
+                return (
+                    <div className="comment">
+                        <h2 className="commentAuthor">
+                            {this.props.author}
+                        </h2>
+                        {this.props.children}
+                    </div>
+                );
+            }
+        });
         
         var CommentList = React.createClass({
             render: function() {
+                var commentNodes = this.props.data.map(function(comment) {
+                    return (
+                        <Comment author={comment.author} key={comment.id}>
+                            {comment.text}
+                        </Comment>
+                    );
+                });
                 return (
                     <div className="commentList">
-                        Hello, world! I am a CommentList.
+                        //<Comment author="Peter">This is one comment</Comment>
+                        //<Comment author="Jordan">This is *another* comment</Comment>
+                        {commentNodes}
                     </div>
                 );
             }
@@ -42,14 +69,18 @@
                 return (
                     <div className="commentBox">
                         <h1>CommentBox</h1>
-                        <CommentList />
+                        <CommentList data={this.props.data} />
                         <CommentForm />
                     </div>
                 );
             }
         });
 
-        ReactDOM.render(<CommentBox />, document.getElementById('content'));
+        ReactDOM.render(
+            <CommentBox data={data} />, 
+            document.getElementById('content')
+        );
+
     </script>
 </body>
 <script type="text/babel" src="admin/public/helloworld.js"></script>
