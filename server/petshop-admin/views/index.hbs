@@ -15,6 +15,7 @@
 <body>
     <div id="example"></div>
     <div id="content"></div>
+    <div id="avatar"></div>
     <script type="text/babel">
         // tutorial8.js
         var data = [
@@ -46,8 +47,6 @@
                 });
                 return (
                     <div className="commentList">
-                        //<Comment author="Peter">This is one comment</Comment>
-                        //<Comment author="Jordan">This is *another* comment</Comment>
                         {commentNodes}
                     </div>
                 );
@@ -55,21 +54,69 @@
         });
 
         var CommentForm = React.createClass({
+            getInitialState: function() {
+                return {author: '', text: ''};
+            },
+            handleAuthorChange: function(e) {
+                this.setState({author: e.target.value});
+            },
+            handleTextChange: function(e) {
+                this.setState({text: e.target.value});
+            },
+            handleSubmit: function(e) {
+                e.preventDefault();
+                var author = this.state.author.trim();
+                var text = this.state.text.trim();
+
+                if(!text || !author) {
+                    return;
+                }
+
+                this.setState({author: '', text: ''});
+            },
             render: function() {
                 return (
-                    <div className="commentForm">
-                        Hello, this is a comment form.
-                    </div>
+                    <form className="commentForm" onSubmit={this.handleSubmit}>
+                        <input
+                            type="text"
+                            placeholder="Your name"
+                            value={this.state.author}
+                            onChange={this.handleAuthorChange}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Say something..."
+                            value={this.state.text}
+                            onChange={this.handleTextChange}
+                        />
+                        <input type="submit" value="Post" />
+                    </form>
                 );
             }
         });
 
         var CommentBox = React.createClass({
+            getInitialState: function() {
+                return {data: []};
+            },
+            componentDidMount: function() {
+                $.ajax({
+                    url: this.props.url,
+                    dataType: 'json',
+                    cache: false,
+                    success: function(data) {
+                        this.setState({data: data});
+                    }.bind(this),
+                    error: function(xhr, status, err) {
+                        console.error(this.props.url, status, err.toString());
+                    }.bind(this)
+                });
+            },
             render: function() {
                 return (
                     <div className="commentBox">
                         <h1>CommentBox</h1>
-                        <CommentList data={this.props.data} />
+                        <CommentList data={this.state.data} />
                         <CommentForm />
                     </div>
                 );
@@ -77,7 +124,7 @@
         });
 
         ReactDOM.render(
-            <CommentBox data={data} />, 
+            <CommentBox url="admin/public/comments.json" interval={2000} />, 
             document.getElementById('content')
         );
 
