@@ -732,3 +732,6 @@ init = function init() {
 Then the Promise wich will be returned. In the promise, all initialization tasks of different modules are sequently executed.
 
 Let's take a look at the `SiteServer`. In this "class", api app is used as a contructor parameter, and it will be used to initialize a member named `rootApp`. In the `start(externalApp)` method, an express app will be used to mount api app. Add some log thing will be set here.
+
+##React
+Well, the admin site will use `React` to build views. Check it out from [here](/petshop-admin/README.md)
