@@ -480,7 +480,7 @@ var express             = require('express'),
 var app = express();
 
 // 连接数据库
-mongoose.connect('mongodb://localhost:27017/petshot');
+mongoose.connect('mongodb://localhost:27017/petshop');
 
 // server运行的端口号
 var port = process.env.PORT || '3090';
@@ -663,7 +663,7 @@ var express             = require('express'),
 
 var app = express();
 
-mongoose.connect('mongodb://localhost:27017/petshot');
+mongoose.connect('mongodb://localhost:27017/petshop');
 
 var port = process.env.PORT || '3090';
 
@@ -709,7 +709,7 @@ init = function init() {
     // TODO: the first promise should be configuration.
     return Promise.resolve().then(function() {
         // TODO: configure this connection string.
-        mongoose.connect('mongodb://localhost:27017/petshot');
+        mongoose.connect('mongodb://localhost:27017/petshop');
     }).then(function() {
         models.init();
     }).then(function() {
