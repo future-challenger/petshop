@@ -416,7 +416,7 @@ var express             = require('express'),
 var app = express();
 
 // 连接数据库
-mongoose.connect('mongodb://localhost:27017/petshot');
+mongoose.connect('mongodb://localhost:27017/petshop');
 
 // server运行的端口号
 var port = process.env.PORT || '3090';

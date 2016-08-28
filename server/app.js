@@ -16,7 +16,7 @@ init = function init() {
     // TODO: the first promise should be configuration.
     return Promise.resolve().then(function() {
         // TODO: configure this connection string.
-        mongoose.connect('mongodb://localhost:27017/petshot');
+        mongoose.connect('mongodb://localhost:27017/petshop');
     }).then(function() {
         models.init();
     }).then(function() {
