@@ -27,7 +27,7 @@ frontendRoutes = function() {
     //@WARNNING: just for test
     router.route('/')
         .get((req, res) => {
-            res.render('index', {title: 'Express'});
+            res.render('index', {title: 'Express', script: 'user'});
         });
 
     return router;
