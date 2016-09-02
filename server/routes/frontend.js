@@ -4,12 +4,13 @@ var express = require('express'),
 frontendRoutes = function() {
     var router = express.Router();
 
-    // router.get(/^\/(logout|signout)\/$/, function redirectToSignout(req, res) {
-    //     utils.redirect301(res, subdir + '/petshop/signout/');
-    // });
-    // router.get(/^\/signup\/$/, function redirectToSignup(req, res) {
-    //     utils.redirect301(res, subdir + '/petshop/signup/');
-    // });
+    router.route(/^\/(logout|signout)\/$/).get((req, res) => {
+            res.render('logout');
+    });
+
+    router.route(/^\/signup\/$/).get((req, res) => {
+        res.render('signup');
+    });
 
     // // redirect to /ghost and let that do the authentication to prevent redirects to /ghost//admin etc.
     // router.get(/^\/((shop-admin|admin|wp-admin|dashboard|signin|login)\/?)$/, function redirectToAdmin(req, res) {
@@ -29,6 +30,7 @@ frontendRoutes = function() {
         .get((req, res) => {
             res.render('index', {title: 'Express', script: 'user'});
         });
+    router.route('/login')
 
     return router;
 };
