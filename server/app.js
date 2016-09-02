@@ -29,7 +29,8 @@ init = function init() {
         // Admin app views and statics
         adminApp.set('view engine', 'hbs');
         adminApp.engine('hbs', adminHbs.express4({
-            partialsDir: __dirname + '/petshop-admin/views/partials'
+            partialsDir: __dirname + '/petshop-admin/views/partials',
+            defaultLayout: __dirname + '/petshop-admin/views/layout/default.hbs'
         }));
         adminApp.set('views', __dirname + '/petshop-admin/views');
 
