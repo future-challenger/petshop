@@ -11,6 +11,7 @@
     "express": "^4.14.0",
     "express-hbs": "^1.0.2",
     "express-session": "^1.13.0",
+    "lodash": "^4.15.0",
     "mongoose": "^4.5.2",
     "mongoose-auto-increment": "^5.0.1",
     "oauth2orize": "^1.3.0",

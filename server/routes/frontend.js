@@ -5,7 +5,7 @@ frontendRoutes = function() {
     var router = express.Router();
 
     router.route(/^\/(logout|signout)\/$/).get((req, res) => {
-            res.render('logout');
+        res.render('logout');
     });
 
     router.route(/^\/signup\/$/).get((req, res) => {
@@ -28,7 +28,7 @@ frontendRoutes = function() {
     //@WARNNING: just for test
     router.route('/')
         .get((req, res) => {
-            res.render('index', {title: 'Express', script: 'user'});
+            res.render('index', {title: 'Admin'});
         });
     router.route('/login')
 
