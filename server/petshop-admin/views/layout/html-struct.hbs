@@ -2,8 +2,27 @@
 <html>
 
 <head>
-    <meta charset="UTF-8" />
-    <title>{{title}}</title>
+    {{!-- Document Settings --}}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    {{!-- Page Meta --}}
+    <title>{{meta_title}}</title>
+    <meta name="description" content="{{meta_description}}" />
+
+    {{!-- Mobile Meta --}}
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {{!-- Brand icon --}}
+    <!-- <link rel="shortcut icon" href="{{asset "favicon.ico"}}"> -->
+
+    {{!-- Styles'n'Scripts --}}
+    <link rel="stylesheet" type="text/css" href="{{asset "css/screen.css"}}" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+
+    {{!-- Ghost outputs important style and meta data with this tag --}}
+    {{ghost_head}}
 
     {{{block "pageStyles"}}}
     <!-- <script src="https://npmcdn.com/react@15.3.1/dist/react.js"></script>
@@ -21,13 +40,11 @@
     {{> other}}
 
     {{{block 'pageScripts'}}}
-    
+
 <!-- the rest may be deleted later -->
-    <div id="example"></div>
-    <div id="content"></div>
-    <div id="avatar"></div>
+
     <!-- scripts -->
-    <script type="text/javascript" src="admin/public/bundle.js"></script>
+
 <!-- end -->
 </body>
 </html>
