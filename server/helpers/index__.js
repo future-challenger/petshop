@@ -1,23 +1,22 @@
-var hbs             = require('express-hbs'),
-    Promise         = require('bluebird'),
-    errors          = require('../errors'),
-    utils           = require('./utils'),
-    i18n            = require('../i18n'),
-    coreHelpers     = {},
+var hbs = require('express-hbs'),
+    Promise = require('bluebird'),
+    utils = require('./utils'),
+    errors = require('../errors'),
+
+    coreHelpers = {},
     registerHelpers;
 
-if (!utils.isProduction) {
-    hbs.handlebars.logger.level = 0;
-}
-
 coreHelpers.asset  = require('./asset');
-coreHelpers.author  = require('./author');
+// coreHelpers.author  = require('./author');
 coreHelpers.body_class  = require('./body_class');
 coreHelpers.content  = require('./content');
 coreHelpers.date  = require('./date');
 coreHelpers.encode  = require('./encode');
 coreHelpers.excerpt  = require('./excerpt');
-coreHelpers.facebook_url = require('./facebook_url');
+// @TODO: need modify to weibo etc.
+// coreHelpers.facebook_url = require('./facebook_url');
+// coreHelpers.twitter_url = require('./twitter_url');
+
 coreHelpers.foreach = require('./foreach');
 coreHelpers.get = require('./get');
 coreHelpers.ghost_foot = require('./ghost_foot');
@@ -35,7 +34,7 @@ coreHelpers.prev_post = require('./prev_next');
 coreHelpers.next_post = require('./prev_next');
 coreHelpers.tags = require('./tags');
 coreHelpers.title = require('./title');
-coreHelpers.twitter_url = require('./twitter_url');
+
 coreHelpers.url = require('./url');
 
 // Specialist helpers for certain templates
@@ -48,7 +47,8 @@ coreHelpers.helperMissing = function (arg) {
     if (arguments.length === 2) {
         return undefined;
     }
-    errors.logError(i18n.t('warnings.helpers.index.missingHelper', {arg: arg}));
+
+    // errors.logError(i18n.t('warnings.helpers.index.missingHelper', {arg: arg}));
 };
 
 // Register an async handlebars helper for a given handlebars instance
