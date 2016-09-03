@@ -2,10 +2,13 @@ var Promise     = require('bluebird'),
     express     = require('express'),
     mongoose    = require('mongoose'),
     hbs         = require('express-hbs'),
+
     SiteServer  = require('./SiteServer'),
     models      = require('./models'),
     api         = require('./controllers/api'),
     middleware  = require('./middleware'),
+    helpers     = require('./helpers'),
+    errors      = require('./errors'),
 
     init;
 
@@ -37,6 +40,9 @@ init = function init() {
         console.log(`ADMIN PUBLIC:- ${__dirname}/petshop-admin/public`)
         adminApp.use('/public', express.static(`${__dirname}/petshop-admin/public`));
 
+        // helpers of handlebars
+        helpers.loadCoreHelpers(adminHbs);
+
         middleware(shopApiApp, adminApp);
 
         return new SiteServer(shopApiApp);
@@ -53,5 +59,6 @@ init().then(function(siteServer) {
     siteServer.start(parentApp);
 }).catch(function(err) {
     // TODO: log error
-    console.log(`Server start error ${err}`);
+    // console.log(`Server start error ${err}`);
+    errors.logError('Server error ${err}');
 });
