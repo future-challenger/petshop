@@ -2,7 +2,6 @@ var hbs             = require('express-hbs'),
     Promise         = require('bluebird'),
     errors          = require('../errors'),
     utils           = require('./utils'),
-    i18n            = require('../i18n'),
     coreHelpers     = {},
     registerHelpers;
 
