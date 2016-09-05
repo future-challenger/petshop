@@ -1,2 +1,6 @@
 // TODO: export real configuration later
-module.exports = {};
+module.exports = {
+    theme: {
+        title: 'Yo title'
+    }
+};
