@@ -25,7 +25,7 @@ init = function init() {
     }).then(function() {
         api.init();
     }).then(function() {
-        adminHbs = hbs.create();
+        var adminHbs = hbs.create();
 
         shopApiApp.set('view engine', 'hbs');
 
@@ -41,6 +41,7 @@ init = function init() {
         adminApp.use('/public', express.static(`${__dirname}/petshop-admin/public`));
 
         // helpers of handlebars
+        // helpers.loadCoreHelpers(adminHbs);
         helpers.loadCoreHelpers(adminHbs);
 
         middleware(shopApiApp, adminApp);

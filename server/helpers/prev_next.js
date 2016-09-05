@@ -3,7 +3,7 @@
 // `{{#prev_post}}<a href ="{{url}}>previous post</a>{{/prev_post}}'
 // `{{#next_post}}<a href ="{{url absolute="true">next post</a>{{/next_post}}'
 
-var api             = require('../api'),
+var /*api             = require('../api'),*/
     schema          = require('../data/schema').checks,
     Promise         = require('bluebird'),
     fetch, prevNext;

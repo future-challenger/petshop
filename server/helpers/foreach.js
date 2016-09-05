@@ -5,14 +5,15 @@
 var hbs             = require('express-hbs'),
     _               = require('lodash'),
     errors          = require('../errors'),
-    i18n            = require('../i18n'),
+    // i18n            = require('../i18n'),
 
     hbsUtils        = hbs.handlebars.Utils,
     foreach;
 
 foreach = function (itemType, options) {
     if (!options) {
-        errors.logWarn(i18n.t('warnings.helpers.foreach.iteratorNeeded'));
+        // errors.logWarn(i18n.t('warnings.helpers.foreach.iteratorNeeded'));
+        errors.logError('warnings.helpers.foreach.iteratorNeeded');
     }
 
     // Initial values set based on parameters sent through. If nothing sent, set to defaults

@@ -8,7 +8,7 @@ var _               = require('lodash'),
     api             = require('../api'),
     jsonpath        = require('jsonpath'),
     labs            = require('../utils/labs'),
-    i18n            = require('../i18n'),
+    // i18n            = require('../i18n'),
     resources,
     pathAliases,
     get;

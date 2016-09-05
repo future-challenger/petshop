@@ -4,9 +4,11 @@
         <span class="hidden">Close</span>
     </a>
     <ul>
+        {{!--
         {{#foreach navigation}}
             <li class="nav-{{slug}}{{#if current}} nav-current{{/if}}" role="presentation"><a href="{{url absolute="true"}}">{{label}}</a></li>
         {{/foreach}}
+        --}}
     </ul>
     {{#if @labs.subscribers}}
         <a class="subscribe-button" href="{{@blog.url}}/subscribe/">Subscribe</a>

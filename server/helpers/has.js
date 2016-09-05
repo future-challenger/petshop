@@ -5,7 +5,7 @@
 
 var _               = require('lodash'),
     errors          = require('../errors'),
-    i18n            = require('../i18n'),
+    // i18n            = require('../i18n'),
     has;
 
 has = function (options) {
@@ -41,7 +41,8 @@ has = function (options) {
     }
 
     if (!tagList && !authorList) {
-        errors.logWarn(i18n.t('warnings.helpers.has.invalidAttribute'));
+        // errors.logWarn(i18n.t('warnings.helpers.has.invalidAttribute'));
+        errors.logWarn('warnings.helpers.has.invalidAttribute');
         return;
     }
 
