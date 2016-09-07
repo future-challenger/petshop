@@ -1,7 +1,20 @@
 import React from 'react';
 import {render} from 'react-dom';
 
+import LabeledInputText from './LabeledInputText';
+import SubmitButton from './SubmitButton';
+
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleLogin = this.handleLogin.bind(this);
+    }
+
+    handleLogin(username, password) {
+
+    }
+
     render() {
         var divStyle = {
             color: 'blue',
@@ -12,25 +25,15 @@ class App extends React.Component {
         return (
             <div style={divStyle}>
                 <p> Yo, React </p>
-                <input type="text" style={{display: 'block'}}/>
-                <input type="text" style={{display: 'block'}}/>
+                <LabeledInputText labelText="Username: " />
+                <LabeledInputText labelText="Password: " />
+
+                <SubmitButton title="Submit" onLogin={this.handleLogin} />
             </div>
         );
     }
 }
 
-class LabeledInputText extends React.Component {
-    constructor(props) {
 
-    }
-
-    render() {
-        return (
-            <div>
-                <span>this.props.labelText</span><input type="text" />
-            </div>
-        );
-    }
-}
 
 render(<App />, document.getElementById('content'));
