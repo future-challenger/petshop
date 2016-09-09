@@ -16,7 +16,9 @@ export default class LabeledInputText extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className={this.props.labelText.toLowerCase() == 'username'
+                            ? 'form-control'
+                            : 'form-control form-under'}>
                 <span>{`${this.props.labelText} :`}</span>
                 <input type="text" placeholder={this.props.labelText} onChange={this.handleTextChange} />
             </div>

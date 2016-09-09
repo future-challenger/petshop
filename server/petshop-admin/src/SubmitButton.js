@@ -18,7 +18,7 @@ export default class SubmitButton extends React.Component {
     render() {
         return (
             // <input onClick={this.handleLogin} type="button" value={this.props.title} />
-            <div onClick={this.handleLogin} >
+            <div onClick={this.handleLogin} className="form-control form-under form-button">
                 {this.props.title}
             </div>
         );

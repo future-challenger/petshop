@@ -48,8 +48,8 @@ class App extends React.Component {
         };
         return (
             // <div style={divStyle}>
-            <div className="">
-                {/*<p> Yo, React </p>*/} 
+            <div className="box-group">
+                {/*<p> Yo, React </p>*/}
                 <LabeledInputText labelText="Username" onUserNameChanged={this.handleUserNameChanged} />
                 <LabeledInputText labelText="Password" onPasswordChanged={this.handlePasswordChanged} />
 
