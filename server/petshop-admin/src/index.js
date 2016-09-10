@@ -40,18 +40,18 @@ class App extends React.Component {
     }
 
     render() {
-        var divStyle = {
-            color: 'blue',
-            wdith: '150px',
-            paddingTop: '10px',
-            display: 'inline-block'
+        let divStyle = {
+            width:'230px',
+            border: '1px solid blue',
+            padding:'5px',
+            margin: '10px'
         };
+
         return (
-            // <div style={divStyle}>
-            <div className="box-group">
+            <div style={divStyle}>
                 {/*<p> Yo, React </p>*/}
-                <LabeledInputText labelText="Username" onUserNameChanged={this.handleUserNameChanged} />
-                <LabeledInputText labelText="Password" onPasswordChanged={this.handlePasswordChanged} />
+                <LabeledInputText labelText="Username" bordercolor="green" onUserNameChanged={this.handleUserNameChanged} />
+                <LabeledInputText labelText="Password" bordercolor="red" onPasswordChanged={this.handlePasswordChanged} />
 
                 <SubmitButton title="Click" onLogin={this.handleLogin} />
             </div>
