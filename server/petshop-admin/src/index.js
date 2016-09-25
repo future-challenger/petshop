@@ -48,13 +48,13 @@ class App extends React.Component {
         };
 
         return (
-            <div style={divStyle}>
-                {/*<p> Yo, React </p>*/}
-                <LabeledInputText labelText="Username" bordercolor="green" onUserNameChanged={this.handleUserNameChanged} />
-                <LabeledInputText labelText="Password" bordercolor="red" onPasswordChanged={this.handlePasswordChanged} />
+    <div style={divStyle}>
+        {/*<p> Yo, React </p>*/}
+        <LabeledInputText labelText="Username" bordercolor="green" onUserNameChanged={this.handleUserNameChanged} />
+        <LabeledInputText labelText="Password" bordercolor="red" onPasswordChanged={this.handlePasswordChanged} />
 
-                <SubmitButton title="Click" onLogin={this.handleLogin} />
-            </div>
+        <SubmitButton title="Click" onLogin={this.handleLogin} />
+    </div>
         );
     }
 }
