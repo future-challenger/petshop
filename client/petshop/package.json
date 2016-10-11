@@ -8,5 +8,9 @@
   "dependencies": {
     "react": "15.3.2",
     "react-native": "0.34.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-flow-strip-types": "^6.14.0",
+    "flow-bin": "^0.33.0"
   }
 }

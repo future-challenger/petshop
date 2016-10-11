@@ -1,3 +1,5 @@
+//@flow
+
 import React from 'react';
 import {
     TouchableHighlight,
@@ -7,6 +9,8 @@ import {
     Animated
 } from 'react-native';
 
+const ButtonText: string = 'Button';
+
 export default class TouchableButton extends React.Component {
     constructor(props) {
         super(props);
@@ -15,6 +19,7 @@ export default class TouchableButton extends React.Component {
         }
     }
     render() {
+        let buttonTitle = this.props.buttonTitle ? this.props.buttonTitle : 'Button';
         return (
             <TouchableHighlight onPress={
                 ()=> {
@@ -27,11 +32,12 @@ export default class TouchableButton extends React.Component {
                     //         {text: '确定', onPress: () => console.log('OK Pressed')},
                     //     ]
                     // )
+                    this.props.onFetch();
                 }
             } style={[styles.button, this.state.pressed ? {backgroundColor: 'green'} : {}]}
             onHideUnderlay={()=>{this.setState({pressed: false})}}
             onShowUnderlay={()=>{this.setState({pressed: true})}}>
-                <Text>Button</Text>
+                <Text>{buttonTitle}</Text>
             </TouchableHighlight>
         );
     }
