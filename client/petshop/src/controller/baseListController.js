@@ -67,3 +67,15 @@ export default class BaseListController extends Component {
 		);
 	}
 };
+
+export var TableStyle = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 10,
+    backgroundColor: '#F6F6F6',
+  },
+  text: {
+    flex: 1,
+  },
+});

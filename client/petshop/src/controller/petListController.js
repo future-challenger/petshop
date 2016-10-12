@@ -5,7 +5,9 @@ import {
 	ListView
 } from 'react-native';
 
-export default class PetListController extends Component {
+import BaseListController from './baseListController';
+
+export default class PetListController extends BaseListController {
 	constructor(props) {
 		super(props);
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -18,8 +20,10 @@ export default class PetListController extends Component {
 		return (
 			<View>
 				<ListView
-					
-				 />
+					dataSource={this.state.dataSource}
+					renderRow={this._renderRow.bind(this)}
+					renderSeperator={this._renderSeperator.bind(this)}
+					/>
 			</View>
 		);
 	}

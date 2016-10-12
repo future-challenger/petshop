@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import Button from '../view/touchableButton';
+import BaseListController, {TableStyle} from './baseListController';
 import PetListController from './petListController';
 
 /*
@@ -18,7 +19,7 @@ type State = {
 };
 */
 
-export default class HomeController extends React.Component {
+export default class HomeController extends BaseListController {
 	props: Props;
 
 	constructor(props) {
@@ -69,14 +70,12 @@ export default class HomeController extends React.Component {
 					this._onPressRow(rowID);
 					highlightRow(sectionID, rowID);
 				}}>
-				<View style={styles.row}>
-					<Text style={styles.text}>data</Text>
+				<View style={TableStyle.row}>
+					<Text style={TableStyle.text}>data</Text>
 				</View>
 			</TouchableHighlight>
 		);
 	}
-
-
 
 	_onPressRow(rowID: number) {
 		this.props.navigator.push({
@@ -99,14 +98,3 @@ export default class HomeController extends React.Component {
 	}
 };
 
-export var TableStyle = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    padding: 10,
-    backgroundColor: '#F6F6F6',
-  },
-  text: {
-    flex: 1,
-  },
-});
