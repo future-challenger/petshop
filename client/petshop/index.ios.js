@@ -16,13 +16,13 @@ import {
 
 import HomeController from './src/controller/homeController';
 
-type Route = {
-  name: string,
-  component: React.Component,
-  index: number
+type State = {
+	selectedTab: string 
 };
 
 class Petshop extends Component {
+	state: State;
+	
   constructor(props) {
     super(props);
     this.state = {
@@ -30,11 +30,11 @@ class Petshop extends Component {
     }
 
     // Bind
-    this._renderContent = this._renderContent.bind(this);
-    this._renderScene = this._renderScene.bind(this);
+    // this._renderContent = this._renderContent.bind(this);
+    // this._renderScene = this._renderScene.bind(this);
   }
 
-  _renderScene(route: any, navigator) {
+  _renderScene(route: Route, navigator: Navigator) {
     return (
       <Navigator 
         initialRoute={{title: 'Home', index: 0}}
@@ -48,14 +48,14 @@ class Petshop extends Component {
       <View style={styles.container}>
         <Navigator
           initialRoute={{ name: 'home', comp: HomeController, index: 0}}
-          renderSecene={this._renderScene}
+          renderSecene={this._renderScene.bind(this)}
           />
       </View>
     );
   }
 
   _renderContent(category: string, title: ?string) {
-    return (
+    // return (
       // <NatvigatorIOS style={styles.wrapper}
       //   initialRoute={{
       //     component: HomeController,
@@ -64,7 +64,7 @@ class Petshop extends Component {
       //   }}>
 
       // </NatvigatorIOS>
-    );
+    // );
   }
 }
 
