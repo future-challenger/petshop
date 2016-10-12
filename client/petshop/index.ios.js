@@ -9,6 +9,7 @@ import {
     AppRegistry,
     StyleSheet,
     TabBarIOS,
+    Navigator,
     Text,
     View
 } from 'react-native';
@@ -42,7 +43,7 @@ class petshop extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <HomeController />
+                <Navigator />
             </View>
         );
     }
@@ -65,20 +66,6 @@ const styles = StyleSheet.create({
         color: '#333333',
         marginBottom: 5,
     },
-});
-
-var styles = StyleSheet.create({
-    tabContent: {
-        flex: 1,
-        alignItems: "center",
-    },
-    tabText: {
-        color: "white",
-        margin: 50,
-    },
-    wrapper: {
-        flex: 1
-    }
 });
 
 AppRegistry.registerComponent('petshop', () => petshop);
