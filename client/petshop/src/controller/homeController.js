@@ -5,6 +5,7 @@ import {
 	View,
 	Alert,
 	Text,
+	TouchableHighlight,
 	ListView
 } from 'react-native';
 
@@ -12,25 +13,24 @@ import Button from '../view/touchableButton';
 import BaseListController, {TableStyle} from './baseListController';
 import PetListController from './petListController';
 
-/*
 type State = {
 	message: string,
-	dataSource: ListView.DataSource<string>
+	dataSource: ListView.DataSource
 };
-*/
 
 export default class HomeController extends BaseListController {
-	props: Props;
+	state: State;
 
 	constructor(props) {
 		super(props);
+
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
 			message: '',
 			dataSource: ds
 		};
 
-		this.fetchAction = this.fetchAction.bind(this);
+		// this.fetchAction = this.fetchAction.bind(this);
 		this.sampleData = this.sampleData.bind(this);
 	}
 
@@ -90,8 +90,8 @@ export default class HomeController extends BaseListController {
 			<View>
 				<ListView
 					dataSource={this.state.dataSource}
-					renderRow={this._renderRow.bind(this)}
-					renderSeperator={this._renderSeperator.bind(this)}
+					renderRow={this._renderRow}
+					renderSeperator={this._renderSeperator}
 					/>
 			</View>
 		);

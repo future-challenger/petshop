@@ -1,3 +1,5 @@
+//@flow
+
 import React, {Component} from 'react';
 import {
 	View,
@@ -12,7 +14,7 @@ export default class PetListController extends BaseListController {
 		super(props);
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
-			dataSource: ds.cloneWithRows(['Dog 1', 'Dog 2', 'Dog 3']);
+			dataSource: ds.cloneWithRows(['Dog 1', 'Dog 2', 'Dog 3'])
 		};
 	}
 
