@@ -16,13 +16,7 @@ import {
 
 import HomeController from './src/controller/homeController';
 
-type Route = {
-  name: string,
-  component: React.Component,
-  index: number
-};
-
-class petshop extends Component {
+class Petshop extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,13 +28,8 @@ class petshop extends Component {
     this._renderScene = this._renderScene.bind(this);
   }
 
-  _renderScene(route: any, navigator) {
-    return (
-      <Navigator 
-        initialRoute={{title: 'Home', index: 0}}
-        renderScene={}
-      />
-    );
+  _renderScene(route: any, navigator: Navigator) {
+    return React.createElement(route.component)
   }
 
   render() {
@@ -55,16 +44,16 @@ class petshop extends Component {
   }
 
   _renderContent(category: string, title: ?string) {
-    return (
-      <NatvigatorIOS style={styles.wrapper}
-        initialRoute={{
-          component: HomeController,
-          title: title,
-          passProps: { filter: category }
-        }}>
+    // return (
+    //   <NatvigatorIOS style={styles.wrapper}
+    //     initialRoute={{
+    //       component: HomeController,
+    //       title: title,
+    //       passProps: { filter: category }
+    //     }}>
 
-      </NatvigatorIOS>
-    );
+    //   </NatvigatorIOS>
+    // );
   }
 }
 
@@ -87,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('petshop', () => petshop);
+AppRegistry.registerComponent('Petshop', () => Petshop);

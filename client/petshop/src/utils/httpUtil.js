@@ -14,7 +14,7 @@ function fetchData(URL) {
 export function getShotsByType(type: string, pageNum: ?number) {
     let URL = `${API_URL}shots/?list=${type}`;
     if (pageNum) {
-        URL += `&per_page=20&page=${pageNumber}`;
+        URL += `&per_page=20&page=${pageNum}`;
     }
 
     return fetchData(URL);
