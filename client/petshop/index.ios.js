@@ -22,7 +22,8 @@ type State = {
 
 class Petshop extends Component {
 	state: State;
-	
+	_renderScene: (r: Route, nav: Navigator) => ?ReactElement<*>;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -31,16 +32,14 @@ class Petshop extends Component {
 
     // Bind
     // this._renderContent = this._renderContent.bind(this);
-    // this._renderScene = this._renderScene.bind(this);
+    this._renderScene = this._renderScene.bind(this);
   }
 
   _renderScene(route: Route, navigator: Navigator) {
-    return (
-      <Navigator 
-        initialRoute={{title: 'Home', index: 0}}
-        renderScene={this._renderScene}
-      />
-    );
+    if(route.component) {
+			return React.createElement(route.component
+				, {...this.props, ...route.passProps, navigator, route});
+		}
   }
 
   render() {
@@ -48,7 +47,7 @@ class Petshop extends Component {
       <View style={styles.container}>
         <Navigator
           initialRoute={{ name: 'home', comp: HomeController, index: 0}}
-          renderSecene={this._renderScene.bind(this)}
+          renderSecene={this._renderScene}
           />
       </View>
     );
