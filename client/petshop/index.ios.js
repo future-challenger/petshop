@@ -22,6 +22,7 @@ type State = {
 
 class Petshop extends Component {
 	state: State;
+	initialRoute: Route;
 	_renderScene: (r: Route, nav: Navigator) => ?ReactElement<*>;
 
   constructor(props) {
@@ -29,6 +30,15 @@ class Petshop extends Component {
     this.state = {
       selectedTab: 'default'
     }
+
+		this.initialRoute = {
+			title: 'Users',
+			component: HomeController,
+			index: 0,
+			passProps: {
+
+			}
+		}
 
     // Bind
     // this._renderContent = this._renderContent.bind(this);
@@ -46,7 +56,7 @@ class Petshop extends Component {
     return (
       <View style={styles.container}>
         <Navigator
-          initialRoute={{ name: 'home', comp: HomeController, index: 0}}
+          initialRoute={this.initialRoute}
           renderSecene={this._renderScene}
           />
       </View>

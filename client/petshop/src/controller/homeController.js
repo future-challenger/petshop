@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import Button from '../view/touchableButton';
+import PetListController from './petListController';
 
 /*
 type State = {
@@ -25,27 +26,20 @@ export default class HomeController extends React.Component {
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
 			message: '',
-			dataSource: ds.cloneWithRows(['Micheal', 'Jack', 'Paul']),
+			dataSource: ds
 		};
 
 		this.fetchAction = this.fetchAction.bind(this);
 		this.sampleData = this.sampleData.bind(this);
 	}
 
-	componentDidMount() {
-
+	componentWillMount() {
+		this.setState({dataSource: this.state.dataSource.cloneWithRows([
+			'Micheal', 'Jack', 'Paul'
+		])});
 	}
 
 	fetchAction() {
-		// Alert.alert(
-		//     `你点击了按钮`,
-		//     'Hello World！',
-		//     [
-		//         {text: '以后再说', onPress: () => console.log('Ask me later pressed')},
-		//         {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-		//         {text: '确定', onPress: () => console.log('OK Pressed')},
-		//     ]
-		// )
 		this.setState({ message: 'Empty' });
 
 		const init = {
@@ -68,7 +62,7 @@ export default class HomeController extends React.Component {
 			.catch(e => { console.log(`error ${e}`) });
 	}
 
-	_renderRow(data: string, sectionID: number, rowID: number, 
+	_renderRow(data: any, sectionID: number, rowID: number, 
 		highlightRow: (sectionID: number, rowID: number) => void) {
 		return (
 			<TouchableHighlight onPress={() => {
@@ -82,19 +76,13 @@ export default class HomeController extends React.Component {
 		);
 	}
 
-	_renderSeperator(sectionID: number, rowID: number, adjacentRowHighlighted: boolean) {
-		return (
-			<View 
-				key={`${sectionID}-${rowID}`} 
-				style={{backgroundColor: '#CCCCCC'}}>
-			/>
-		);
-	}
 
-	_onPressRow(rowID: number) => void {
+
+	_onPressRow(rowID: number) {
 		this.props.navigator.push({
 			title: 'Users',
-			component: 
+			component: PetListController,
+			passProps: {}
 		});
 	}
 
@@ -111,7 +99,7 @@ export default class HomeController extends React.Component {
 	}
 };
 
-var styles = StyleSheet.create({
+export var TableStyle = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'center',
