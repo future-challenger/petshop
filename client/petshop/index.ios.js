@@ -16,6 +16,12 @@ import {
 
 import HomeController from './src/controller/homeController';
 
+type Route = {
+  name: string,
+  component: React.Component,
+  index: number
+};
+
 class petshop extends Component {
   constructor(props) {
     super(props);
@@ -25,15 +31,23 @@ class petshop extends Component {
 
     // Bind
     this._renderContent = this._renderContent.bind(this);
+    this._renderScene = this._renderScene.bind(this);
   }
 
-
+  _renderScene(route: any, navigator) {
+    return (
+      <Navigator 
+        initialRoute={{title: 'Home', index: 0}}
+        renderScene={}
+      />
+    );
+  }
 
   render() {
     return (
       <View style={styles.container}>
         <Navigator
-          initialRoute={{ name: 'main' }}
+          initialRoute={{ name: 'home', comp: HomeController, index: 0}}
           renderSecene={this._renderScene}
           />
       </View>
