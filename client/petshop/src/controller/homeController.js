@@ -1,16 +1,17 @@
 //@flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import {
 	View,
 	Alert,
 	Text,
 	TouchableHighlight,
-	ListView
+	ListView,
+	StyleSheet
 } from 'react-native';
 
 import Button from '../view/touchableButton';
-import BaseListController, {TableStyle} from './baseListController';
+// import BaseListController, {TableStyle} from './baseListController';
 import PetListController from './petListController';
 
 type State = {
@@ -18,7 +19,7 @@ type State = {
 	dataSource: ListView.DataSource
 };
 
-export default class HomeController extends BaseListController {
+export default class HomeController extends Component {
 	state: State;
 
 	constructor(props) {
@@ -27,17 +28,8 @@ export default class HomeController extends BaseListController {
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
 			message: '',
-			dataSource: ds
+			dataSource: ds.cloneWithRows(['Micheal', 'Jack', 'Paul'])
 		};
-
-		// this.fetchAction = this.fetchAction.bind(this);
-		this.sampleData = this.sampleData.bind(this);
-	}
-
-	componentWillMount() {
-		this.setState({dataSource: this.state.dataSource.cloneWithRows([
-			'Micheal', 'Jack', 'Paul'
-		])});
 	}
 
 	fetchAction() {
@@ -63,23 +55,35 @@ export default class HomeController extends BaseListController {
 			.catch(e => { console.log(`error ${e}`) });
 	}
 
-	_renderRow(data: any, sectionID: number, rowID: number, 
+	_renderRow(data: string, sectionID: number, rowID: number, 
 		highlightRow: (sectionID: number, rowID: number) => void) {
 		return (
 			<TouchableHighlight onPress={() => {
 					this._onPressRow(rowID);
 					highlightRow(sectionID, rowID);
 				}}>
-				<View style={TableStyle.row}>
-					<Text style={TableStyle.text}>data</Text>
+				<View style={styles.row}>
+					<Text style={styles.text}>{data}</Text>
 				</View>
 			</TouchableHighlight>
 		);
 	}
 
+	_renderSeparator(sectionID: number, rowID: number) {
+    return (
+      <View
+        key={`${sectionID}-${rowID}`}
+        style={{
+          height: 1,
+          backgroundColor: '#3B5998',
+        }}
+      />
+    );
+  }
+
 	_onPressRow(rowID: number) {
 		this.props.navigator.push({
-			title: 'Users',
+			title: 'Pets',
 			component: PetListController,
 			passProps: {}
 		});
@@ -87,14 +91,30 @@ export default class HomeController extends BaseListController {
 
 	render() {
 		return (
-			<View>
+			<View style={{marginTop: 64}}>
 				<ListView
 					dataSource={this.state.dataSource}
-					renderRow={this._renderRow}
-					renderSeperator={this._renderSeperator}
-					/>
+					renderRow={this._renderRow.bind(this)}
+					renderSeperator={this._renderSeparator.bind(this)}
+					
+				/>
 			</View>
 		);
 	}
 };
 
+var styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 10,
+    backgroundColor: '#F6F6F6',
+  },
+  thumb: {
+    width: 64,
+    height: 64,
+  },
+  text: {
+    flex: 1,
+  },
+});
