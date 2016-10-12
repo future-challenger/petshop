@@ -22,7 +22,7 @@ type Route = {
   index: number
 };
 
-class petshop extends Component {
+class Petshop extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,7 +38,7 @@ class petshop extends Component {
     return (
       <Navigator 
         initialRoute={{title: 'Home', index: 0}}
-        renderScene={}
+        renderScene={this._renderScene}
       />
     );
   }
@@ -56,14 +56,14 @@ class petshop extends Component {
 
   _renderContent(category: string, title: ?string) {
     return (
-      <NatvigatorIOS style={styles.wrapper}
-        initialRoute={{
-          component: HomeController,
-          title: title,
-          passProps: { filter: category }
-        }}>
+      // <NatvigatorIOS style={styles.wrapper}
+      //   initialRoute={{
+      //     component: HomeController,
+      //     title: title,
+      //     passProps: { filter: category }
+      //   }}>
 
-      </NatvigatorIOS>
+      // </NatvigatorIOS>
     );
   }
 }
@@ -87,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('petshop', () => petshop);
+AppRegistry.registerComponent('Petshop', () => Petshop);

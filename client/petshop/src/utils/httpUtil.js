@@ -4,22 +4,22 @@ const API_URL = 'https://api.dribbble.com/v1/';
 const ACCESS_TOKEN = '8d9bd601f9461955b330d88c44f2930257364de98cddc2064d93cdcb300cb91d';
 
 function fetchData(URL) {
-    return fetch(URL, {
-        headers: {
-            'Authorization': `Bearer ${ACCESS_TOKEN}`
-        }
-    }).then((response) => response.json());
+	return fetch(URL, {
+		headers: {
+			'Authorization': `Bearer ${ACCESS_TOKEN}`
+		}
+	}).then((response) => response.json());
 }
 
 export function getShotsByType(type: string, pageNum: ?number) {
-    let URL = `${API_URL}shots/?list=${type}`;
-    if (pageNum) {
-        URL += `&per_page=20&page=${pageNumber}`;
-    }
+	let URL = `${API_URL}shots/?list=${type}`;
+	if (pageNum) {
+		URL += `&per_page=20&page=${pageNum}`;
+	}
 
-    return fetchData(URL);
+	return fetchData(URL);
 }
 
 export function getResources(URL: ?string) {
-    return fetchData(URL);
+	return fetchData(URL);
 }

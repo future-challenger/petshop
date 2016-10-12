@@ -1,5 +1,6 @@
 declare type Route = {
-  name: string,
+  title: string,
   component: React.Component,
-  index: number
+  index: number,
+	passProps: ?any
 };
