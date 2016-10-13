@@ -38,7 +38,7 @@ class Petshop extends Component {
 			component: HomeController,
 			index: 0,
 			passProps: {
-
+				// 在这里传递其他的参数
 			}
 		}
 
