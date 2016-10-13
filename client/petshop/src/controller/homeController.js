@@ -75,7 +75,7 @@ export default class HomeController extends Component {
         key={`${sectionID}-${rowID}`}
         style={{
           height: 1,
-          backgroundColor: '#3B5998',
+          backgroundColor: 'black',
         }}
       />
     );
@@ -95,8 +95,13 @@ export default class HomeController extends Component {
 				<ListView
 					dataSource={this.state.dataSource}
 					renderRow={this._renderRow.bind(this)}
-					renderSeperator={this._renderSeparator.bind(this)}
-					
+					renderSeparator={(sectionID, rowID, adjacentRowHighlighted) => <View
+						
+						style={{
+							height: 1,
+							backgroundColor: '#CCCCCC',
+						}}
+					/>}
 				/>
 			</View>
 		);

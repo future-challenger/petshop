@@ -27,32 +27,32 @@ class Petshop extends Component {
 	initialRoute: Route;
 	_renderScene: (r: Route, nav: Navigator) => ?ReactElement<*>;
 
-constructor(props) {
-	super(props);
-	this.state = {
-		selectedTab: 'default'
-	}
+	constructor(props) {
+		super(props);
+		this.state = {
+			selectedTab: 'default'
+		}
 
 		this.initialRoute = {
-		title: 'Users',
-		component: HomeController,
-		index: 0,
-		passProps: {
+			title: 'Users',
+			component: HomeController,
+			index: 0,
+			passProps: {
 
-		}
+			}
 		}
 
-	// Bind
-	// this._renderContent = this._renderContent.bind(this);
-	this._renderScene = this._renderScene.bind(this);
-}
+		// Bind
+		// this._renderContent = this._renderContent.bind(this);
+		this._renderScene = this._renderScene.bind(this);
+	}
 
 _renderScene(route: Route, navigator: Navigator) {
 	if (route.component) {
 		return React.createElement(route.component
 			, {...this.props, ...route.passProps, navigator, route});
+	}
 }
-  }
 
 render() {
 	return (
