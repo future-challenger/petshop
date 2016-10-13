@@ -135,3 +135,5 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('petshop', () => Petshop);
+
+
