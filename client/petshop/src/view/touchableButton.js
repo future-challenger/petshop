@@ -2,11 +2,19 @@
 
 import React from 'react';
 import {
+<<<<<<< HEAD
   TouchableHighlight,
   Text,
   Alert,
   StyleSheet,
   Animated
+=======
+	TouchableHighlight,
+	Text,
+	Alert,
+	StyleSheet,
+	Animated
+>>>>>>> origin/dev
 } from 'react-native';
 
 type Props = {
@@ -19,7 +27,17 @@ type State = {
 
 const ButtonText: string = 'Button';
 
+type Props = {
+	buttonTitle: ?string,
+	onFetch: ?any
+};
+
+type State = {
+	pressed: boolean
+};
+
 export default class TouchableButton extends React.Component {
+<<<<<<< HEAD
   props: Props;
   state: State;
 
@@ -61,4 +79,38 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5
   },
+=======
+	props: Props;
+	state: State;
+
+	constructor(props: Props) {
+		super(props);
+		this.state = {
+			pressed: false
+		}
+	}
+
+	render() {
+		let buttonTitle = this.props.buttonTitle ? this.props.buttonTitle : 'Button';
+		return (
+			<TouchableHighlight onPress={
+				() => {
+				}
+			} style={[styles.button, this.state.pressed ? { backgroundColor: 'green' } : {}]}
+				onHideUnderlay={() => { this.setState({ pressed: false }) } }
+				onShowUnderlay={() => { this.setState({ pressed: true }) } }>
+				<Text>{buttonTitle}</Text>
+			</TouchableHighlight>
+		);
+	}
+}
+
+const styles = StyleSheet.create({
+	button: {
+		padding: 10,
+		borderColor: 'blue',
+		borderWidth: 1,
+		borderRadius: 5
+	},
+>>>>>>> origin/dev
 });
