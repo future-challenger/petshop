@@ -55,10 +55,12 @@ export default class HomeController extends Component {
 			.catch(e => { console.log(`error ${e}`) });
 	}
 
-	_renderRow(data: string, sectionID: number, rowID: number, 
+	_renderRow(data: string, sectionID: number, rowID: number,
 		highlightRow: (sectionID: number, rowID: number) => void) {
 		return (
-			<TouchableHighlight onPress={() => {
+			<TouchableHighlight
+				key={`${sectionID}-${rowID}`}
+				onPress={() => {
 					this._onPressRow(rowID);
 					highlightRow(sectionID, rowID);
 				}}>
@@ -91,12 +93,12 @@ export default class HomeController extends Component {
 
 	render() {
 		return (
-			<View style={{marginTop: 64}}>
+			<View style={{flex: 1, marginTop: 64}}>
 				<ListView
 					dataSource={this.state.dataSource}
 					renderRow={this._renderRow.bind(this)}
 					renderSeparator={(sectionID, rowID, adjacentRowHighlighted) => <View
-						
+						key={`${sectionID}-${rowID}`}
 						style={{
 							height: 1,
 							backgroundColor: '#CCCCCC',

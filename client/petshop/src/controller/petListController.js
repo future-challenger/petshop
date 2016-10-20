@@ -32,10 +32,12 @@ export default class PetListController extends Component {
 	_renderRow(data: string, sectionID: number, rowID: number,
 		highlightRow: (sectionID: number, rowID: number) => void) {
 		return (
-			<TouchableHighlight onPress={() => {
-				this._onPressRow(rowID);
-				highlightRow(sectionID, rowID);
-			} }>
+			<TouchableHighlight
+			 	key={`${sectionID}-${rowID}`}
+				onPress={() => {
+					this._onPressRow(data, rowID);
+					highlightRow(sectionID, rowID);
+				} }>
 				<View style={styles.row}>
 					<Text style={styles.text}>{data}</Text>
 				</View>
@@ -67,7 +69,7 @@ export default class PetListController extends Component {
 
 	render() {
 		return (
-			<View style={{ marginTop: 64 }}>
+			<View style={{flex:1, marginTop: 64 }}>
 				<ListView
 					dataSource={this.state.dataSource}
 					renderRow={this._renderRow.bind(this)}

@@ -62,6 +62,7 @@ render() {
 				renderScene={this._renderScene}
 				navigationBar={
 					<Navigator.NavigationBar
+						style={{flexDirection: 'row', backgroundColor: 'white'}}
 						routeMapper={NavigationBarRouteMapper} />
 				}
 				/>
@@ -87,13 +88,20 @@ var NavigationBarRouteMapper = {
 	LeftButton(route, navigator, index, navState) {
 		if (index > 0) {
 			return (
-				<TouchableHighlight style={{ marginTop: 10 }} onPress={() => {
-					if (index > 0) {
-						navigator.pop();
-					}
-				} }>
-					<Text>Back</Text>
-				</TouchableHighlight>
+				<View style={{flex:1, justifyContent: 'center'}}>
+					<TouchableHighlight
+						style={{backgroundColor: 'red', width: 50}}
+						onPress={() => {
+							if (index > 0) {
+								navigator.pop();
+							}
+						}}>
+						<Text style={{
+							marginLeft: 10,
+							backgroundColor: 'yellow'
+						}}>Back</Text>
+					</TouchableHighlight>
+				</View>
 			)
 		} else {
 			return null
