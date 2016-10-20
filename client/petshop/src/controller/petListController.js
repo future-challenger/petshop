@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 // import BaseListController from './baseListController';
+import FlexDemo from './FlexDemo';
 
 type State = {
 	dataSource: ListView.DataSource
@@ -58,13 +59,18 @@ export default class PetListController extends Component {
 	}
 
 	_onPressRow(rowData: string, rowID: number) {
-		Alert.alert(
-			'Row [ ' + rowID + ' ]',
-			`Row data:- ${rowData}`,
-			[
-				{ text: 'OK', onPress: () => console.log('OK Pressed') },
-			]
-		);
+		// Alert.alert(
+		// 	'Row [ ' + rowID + ' ]',
+		// 	`Row data:- ${rowData}`,
+		// 	[
+		// 		{ text: 'OK', onPress: () => console.log('OK Pressed') },
+		// 	]
+		// );
+		this.props.navigator.push({
+			title: 'Flex Demo',
+			component: FlexDemo,
+			passProps: {}
+		});
 	}
 
 	render() {
