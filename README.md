@@ -29,7 +29,7 @@ but first all `Model`s are used a base `mongoose`:
 ```javascript
 var mongoose = require('mongoose'),
     Promise = require('bluebird');
-    
+
 mongoose.Promise = Promise;
 
 module.exports = mongoose;
@@ -88,7 +88,7 @@ schema.methods.meow = function () {
 })
 ...
 ```
-static methods to model. 
+static methods to model.
 ```javascript
 petSchema.static('anotherFindOne', function(options, callback) {
     var conditions = options || {};
@@ -110,7 +110,7 @@ But the doc is not enough. When i have a `BaseSchema` i would like to use it eve
 var mongoose = require('mongoose'),
     util     = require('util');
     Promise  = require('bluebird');
-    
+
 mongoose.Promise = Promise;
 
 var Schema = mongoose.Schema;
@@ -168,8 +168,8 @@ output will be:
 }
 ```
 
-## MongoDB aggregate? 
-It's a good news that lots of new stuff added in MongoDB 3.2, expecially the "left outer join" one. Use `$lookup` you can do this in MongoDB. 
+## MongoDB aggregate?
+It's a good news that lots of new stuff added in MongoDB 3.2, expecially the "left outer join" one. Use `$lookup` you can do this in MongoDB.
 ### Sub-doc
 When I try to find something related to this stuff in Mongoose i find **sub-doc** first. It's interesting to use this, let's give it a shot.
 As we have pets now and we shall pets' accessories too. So we add a accessory schema in *models/accessory.js* file.
@@ -190,7 +190,7 @@ module.exports = {
 ```  
 `module.exports` exported an object with two fileds `schema` and `model`. This is because besides the schema we may want to use the model.
 
-Now go to *models/pet.js* file. 
+Now go to *models/pet.js* file.
 require accessory stuff:
 ```javascript
 var Accessory = require('./accessory');
@@ -371,7 +371,7 @@ express.Router() object is used to get all paths and related handler combined. T
 var express             = require('express'),
 
     petController       = require('./controllers/pet'),
-    
+
     ...
 
     apiRoutes;
@@ -436,7 +436,7 @@ var httpServer = app.listen(port, function () {
 Import *controllers*, *index.js* file in that folder is imported automatically, then use `routes` function to return the `router` in it. It's DONE!
 
 ### Move middleware away
-`Express` has lots of middlewares, middlewares will increase when this app is developing. 
+`Express` has lots of middlewares, middlewares will increase when this app is developing.
 
 Create a directory *serer/middleware* and *index.js* in it. All middleware setup code will be here.
 ```javascript
@@ -447,7 +447,7 @@ var bodyParser          = require('body-parser'),
     routes              = require('../controllers'),
 
     setupMiddleware;
-    
+
 
 setupMiddleware = function(apiApp) {
 
@@ -548,7 +548,7 @@ Still, a glance to how models is refactored is needed:
 // Before
 module.exports = mongoose.model('User', userSchema);
 
-// Now 
+// Now
 module.exports = {
     User: mongoose.model('User', userSchema)
 };
@@ -597,7 +597,7 @@ module.exports = pets;
 All these methods return a `Promise` object. These objects will be used in the `api` module.
 
 ####What about the req and res objects?
-If your API is not just return the most famous words "Hello World!" to clients, you will have to consider HTTP request parameters. These parameters may be in a query string, a posted form or even an uploaded file. The `api` module will wrap them all together in two objects, one is for `POST` (and `PUT`, `DELETE`, etc) object and the other one is for `GET` request. When these two objects are read, send them to "business logic" code, then send the result to client. 
+If your API is not just return the most famous words "Hello World!" to clients, you will have to consider HTTP request parameters. These parameters may be in a query string, a posted form or even an uploaded file. The `api` module will wrap them all together in two objects, one is for `POST` (and `PUT`, `DELETE`, etc) object and the other one is for `GET` request. When these two objects are read, send them to "business logic" code, then send the result to client.
 ```javascript
 var _       = require('lodash'),
     Promise = require('bluebird'),
@@ -614,7 +614,7 @@ http = function(apiMethod) {
         var object = req.body,
             options = _.extend({}, /*req,file, */req.query, req.params, {
                 context: {
-                    user: ((req.user && req.user.id) || (req.user && req.user.id === 0)) ? 
+                    user: ((req.user && req.user.id) || (req.user && req.user.id === 0)) ?
                         req.user.id : null
                 }
             })
@@ -643,7 +643,7 @@ module.exports = {
     http: http
 }
 ```
-Now we dont do anything in `init` method. 
+Now we dont do anything in `init` method.
 
 API method is a parameter for the `http` method, so the wrapped `req` and `res` object can be passed to the API method as parameters. As metioned before, the API method will return a Promise object, which is thenable. In the `then` method models will return to client in `JSON` or if anything went wrong, error message will be returned.
 
@@ -727,7 +727,7 @@ init = function init() {
     })
 };
 ```
-**API APP** and **admin APP** are initialized here. 
+**API APP** and **admin APP** are initialized here.
 
 Then the Promise wich will be returned. In the promise, all initialization tasks of different modules are sequently executed.
 
