@@ -3,6 +3,7 @@
 This is a simple NodeJs server based Express. Database is MongoDB. The package that connect server and db is mongoose.
 
 Mainly updates recently will include:
+
 1. [ ] Move ES5 to ES201x, of course all these stuff is based on Babel.
 2. [ ] Move Grunt to Gulp
 
