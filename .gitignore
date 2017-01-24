@@ -1,2 +1,6 @@
 # VSCode 
 .vscode
+
+build
+
+node_modules
