@@ -1,0 +1,70 @@
+{
+  "name": "petshop-server",
+  "version": "0.1.0",
+  "description": "petshop nodejs server",
+  "main": "server.js",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.4.1",
+    "body-parser": "^1.15.2",
+    "ejs": "^2.4.2",
+    "express": "^4.14.0",
+    "express-hbs": "^1.0.2",
+    "express-session": "^1.13.0",
+    "lodash": "^4.15.0",
+    "moment-timezone": "^0.5.5",
+    "mongoose": "^4.5.2",
+    "mongoose-auto-increment": "^5.0.1",
+    "oauth2orize": "^1.3.0",
+    "passport": "^0.3.2",
+    "passport-http": "^0.3.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-oauth2-client-password": "^0.1.2",
+    "react": "^15.3.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-loader": "latest",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-object-assign": "^6.8.0",
+    "babel-plugin-transform-object-rest-spread": "^6.20.2",
+    "babel-plugin-transform-regenerator": "^6.21.0",
+    "babel-polyfill": "^6.22.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "eslint": "^3.14.0",
+    "eslint-config-airbnb": "^14.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-react": "^6.9.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-eslint": "^3.0.1",
+    "gulp-sourcemaps": "^2.4.0",
+    "gulp-watch": "^4.3.11",
+    "webpack": "^1.13.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/future-challenger/petshop.git"
+  },
+  "keywords": [
+    "oauth2",
+    "nodejs",
+    "mongodb",
+    "es2015",
+    "react-native",
+    "ios",
+    "android"
+  ],
+  "author": "uncle charlie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/future-challenger/petshop/issues"
+  },
+  "homepage": "https://github.com/future-challenger/petshop#readme"
+}
