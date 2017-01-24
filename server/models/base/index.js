@@ -1,20 +1,20 @@
-var mongoose = require('mongoose'),
-    util     = require('util');
-    Promise  = require('bluebird');
-    
+import mongoose from 'mongoose'
+import util from 'util'
+// Promise = require('bluebird');
+
 mongoose.Promise = Promise;
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-function BaseSchema() {
-    Schema.apply(this, arguments);
+function BaseSchema(...args) {
+  Schema.apply(this, args);
 
-    this.add({
-        createdBy: { type: String, default: 'admin'},
-        createdAt: { type: Date, required: true, default: Date.now() },
-        updatedBy: { type: String, default: 'admin'},
-        updatedAt: { type: Date, required: true, default: Date.now() }
-    });
+  this.add({
+    createdBy: { type: String, default: 'admin' },
+    createdAt: { type: Date, required: true, default: Date.now() },
+    updatedBy: { type: String, default: 'admin' },
+    updatedAt: { type: Date, required: true, default: Date.now() },
+  });
 }
 
 util.inherits(BaseSchema, Schema);
