@@ -1,3 +1,8 @@
+/**
+ * This is deprecated, for now I dont need so manhy apps run together.
+ * So I'll use `server.js` to just run as api app.
+ */
+
 import 'babel-polyfill'
 var Promise = require('bluebird'),
   express = require('express'),
@@ -15,21 +20,21 @@ var Promise = require('bluebird'),
   init;
 
 init = function init() {
-  var shopApiApp = express(), // API
+  var apiApp = express(), // API
     adminApp = express();   // Admin site
 
   // TODO: the first promise should be configuration.
-  return Promise.resolve().then(function () {
+  return Promise.resolve().then(() => {
     // TODO: configure this connection string.
     mongoose.connect('mongodb://localhost:27017/petshop');
-  }).then(function () {
+  }).then(() => {
     models.init();
-  }).then(function () {
+  }).then(() => {
     api.init();
-  }).then(function () {
+  }).then(() => {
     var adminHbs = hbs.create();
 
-    shopApiApp.set('view engine', 'hbs');
+    apiApp.set('view engine', 'hbs');
 
     // Admin app views and statics
     adminApp.set('view engine', 'hbs');
@@ -46,9 +51,9 @@ init = function init() {
     // helpers.loadCoreHelpers(adminHbs);
     helpers.loadCoreHelpers(adminHbs);
 
-    middleware(shopApiApp, adminApp);
+    middleware(apiApp, adminApp);
 
-    return new SiteServer(shopApiApp);
+    return new SiteServer(apiApp);
   });
 };
 
@@ -56,11 +61,11 @@ init = function init() {
 var parentApp = express();
 
 // TODO: parentApp.use('path', app), path should be moved in configuration file.
-init().then(function (siteServer) {
+init().then((siteServer) => {
   parentApp.use('/', siteServer.rootApp);
 
   siteServer.start(parentApp);
-}).catch(function (err) {
+}).catch((err) => {
   // TODO: log error
   // console.log(`Server start error ${err}`);
   errors.logError('Server error ${err}');
