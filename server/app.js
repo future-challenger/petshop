@@ -1,7 +1,3 @@
-/**
- * This is deprecated, for now I dont need so manhy apps run together.
- * So I'll use `server.js` to just run as api app.
- */
 
 import 'babel-polyfill'
 var Promise = require('bluebird'),
@@ -15,7 +11,6 @@ var Promise = require('bluebird'),
   middleware = require('./middleware'),
   helpers = require('./helpers'),
   errors = require('./errors'),
-  // debug = require('debug')('petshop:app')
 
   init;
 
@@ -44,7 +39,7 @@ init = function init() {
     }));
     adminApp.set('views', __dirname + '/petshop-admin/views');
 
-    console.log(`ADMIN PUBLIC:- ${__dirname}/petshop-admin/public`)
+    // console.log(`ADMIN PUBLIC:- ${__dirname}/petshop-admin/public`)
     adminApp.use('/public', express.static(`${__dirname}/petshop-admin/public`));
 
     // helpers of handlebars
@@ -68,5 +63,5 @@ init().then((siteServer) => {
 }).catch((err) => {
   // TODO: log error
   // console.log(`Server start error ${err}`);
-  errors.logError('Server error ${err}');
+  errors.logError(`Server error ${err}`);
 });

@@ -7,7 +7,7 @@
             "request": "launch",
             "program": "${workspaceRoot}/node_modules/babel-cli/bin/babel-node.js",
             "stopOnEntry": false,
-            "args": ["${workspaceRoot}/server/server.js"],
+            "args": ["${workspaceRoot}/server/app.js"],
             "cwd": "${workspaceRoot}",
             "preLaunchTask": null,
             "runtimeExecutable": null,

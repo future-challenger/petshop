@@ -3,6 +3,7 @@ import 'babel-polyfill'
 var express = require('express'),
   Promise = require('bluebird'),
   mongoose = require('mongoose'),
+
   // bodyParser          = require('body-parser'),
   // passport            = require('passport'),
   // ejs                 = require('ejs'),
@@ -33,32 +34,37 @@ mongoose.connect('mongodb://localhost:27017/petshop');
 // server运行的端口号
 var port = process.env.PORT || '3090';
 
-// // 测试一下多个方法处理http请求
-// function foo(req, res, next) {
-//     console.log("第一个来了" + arguments);
-//     if (req.query['next'] == 1) {
-//         next();
-//     } else {
-//         res.send('no next');
-//     }
-// }
-
-// function boo(req, res) {
-//     res.send('yo');
-// }
-
 // 给路由设定根路径为/api
 // TODO: this api fucntion's parameter is empty
 // app.use(routes.apiBaseUri, routes.api({}));
-Promise.resolve().then(function () {
-  models.init();
-}).then(function () {
-  api.init();
-}).then(function () {
-  setupMiddleware(app);
-}).catch(function (err) {
-  console.log(`###error ${err}`);
-});
+
+// Promise.resolve().then(function () {
+//   models.init();
+// }).then(function () {
+//   api.init();
+// }).then(function () {
+//   setupMiddleware(app);
+// }).catch(function (err) {
+//   console.log(`###error ${err}`);
+// });
+
+async function configApi() {
+  try {
+    mongoose.connect('mongodb://localhost:27017/petshop');
+
+    models.init()
+    api.init()
+    setupMiddleware(app)
+
+    return 'completed'
+  } catch (e) {
+    console.log(`###error ${err}`)
+    throw e
+  }
+}
+
+configApi().then(val => console.log(`config result: ${val}`))
+  .catch(err => console.log(`###error ${err}`))
 
 // 运行server，并监听指定的端口
 var httpServer = app.listen(port, function () {
