@@ -10,6 +10,7 @@ var Promise = require('bluebird'),
   middleware = require('./middleware'),
   helpers = require('./helpers'),
   errors = require('./errors'),
+  // debug = require('debug')('petshop:app')
 
   init;
 

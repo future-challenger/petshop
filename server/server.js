@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 // 引入我们需要的包express
 var express = require('express'),
   Promise = require('bluebird'),
