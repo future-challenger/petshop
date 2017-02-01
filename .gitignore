@@ -1,6 +1,10 @@
 # VSCode 
 .vscode
 
-build
+# Source
+built
 
 node_modules
+
+# Yarn
+yarn.*
