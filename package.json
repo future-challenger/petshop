@@ -20,11 +20,13 @@
     "passport-http": "^0.3.0",
     "passport-http-bearer": "^1.0.1",
     "passport-oauth2-client-password": "^0.1.2",
-    "react": "^15.3.1"
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
-    "babel-loader": "latest",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
     "babel-plugin-syntax-async-functions": "^6.13.0",
     "babel-plugin-transform-object-assign": "^6.8.0",
     "babel-plugin-transform-object-rest-spread": "^6.20.2",
@@ -32,6 +34,8 @@
     "babel-polyfill": "^6.22.0",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-2": "^6.22.0",
+    "css-loader": "^0.26.1",
     "eslint": "^3.14.0",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
@@ -42,7 +46,11 @@
     "gulp-eslint": "^3.0.1",
     "gulp-sourcemaps": "^2.4.0",
     "gulp-watch": "^4.3.11",
-    "webpack": "^1.13.2"
+    "postcss-loader": "^1.2.2",
+    "react-hot-loader": "^1.3.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^1.16.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

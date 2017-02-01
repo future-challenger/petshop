@@ -26,8 +26,12 @@ setupMiddleware = function (apiApp, adminApp) {
   apiApp.use(apiRoutes.apiBaseUri, apiRoutes.api({}));
 
   // TODO: add adminApp's middlewares later
-  adminApp.use('/', frontendRoutes());
+  if(!adminApp) {
+    console.log('admin app is not ready for config middleware')
+    return 
+  }
 
+  adminApp.use('/', frontendRoutes());
 
   apiApp.use('/admin', adminApp);
 }
