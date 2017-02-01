@@ -9,6 +9,28 @@ var config = {
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: [
+          'babel-loader',
+        ],
+        include: [
+          // path.resolve(__dirname, "app")
+          APP_DIR
+        ],
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader?modules',
+          'postcss-loader',
+        ]
+      }
+    ]
   }
 };
 

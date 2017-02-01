@@ -1,5 +1,5 @@
 {
-    "presets": ["es2015", "react"],
+    "presets": ["es2015", "stage-2", "react"],
     "plugins": ["syntax-async-functions","transform-regenerator", "transform-object-assign", "transform-object-rest-spread"],
     "sourceMaps": true,
     "retainLines": true
