@@ -5,10 +5,16 @@
 import React from 'react'
 import {render} from 'react-dom'
 
+import TitleInput from './TitleInput'
+
 class App extends React.Component {
   render() {
     return (
-      <p>Yo react!</p>
+      <div>
+        <p>Yo react!</p>
+        <TitleInput title='user name' />
+        <TitleInput title='password' />
+      </div>
     )
   }
 }
