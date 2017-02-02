@@ -1,10 +1,10 @@
-var Promise = require('bluebird'),
-  passport = require('passport'),
-  BasicStrategy = require('passport-http').BasicStrategy,
-  BearerStrategy = require('passport-http-bearer').Strategy,
-  // ClientPasswordStrategy = require('passport-oauth2-client-password').
+import Promise from 'bluebird'
+import passport from 'passport'
+import { BasicStrategy } from 'passport-http'
+import { Strategy as BearerStrategy } from 'passport-http-bearer'
+// ClientPasswordStrategy = require('passport-oauth2-client-password').
 
-  dataProvider = require('../models');
+import dataProvider from '../models'
 // Client = require('../models/client'),
 // Token = require('../models/token');
 
@@ -59,7 +59,7 @@ passport.use(new BasicStrategy(
         done(null, false);
         return;
       }
-      var verifyPasswordAsync = Promise.promisify(u.verifyPassword, { context: u });
+      let verifyPasswordAsync = Promise.promisify(u.verifyPassword, { context: u });
       verifyPasswordAsync(password).then((match) => {
         console.log('password match ' + match);
         if (!match) {

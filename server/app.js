@@ -60,6 +60,7 @@ init().then((siteServer) => {
   parentApp.use('/', siteServer.rootApp);
 
   siteServer.start(parentApp);
+  return 0
 }).catch((err) => {
   // TODO: log error
   // console.log(`Server start error ${err}`);
