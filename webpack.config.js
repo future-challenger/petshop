@@ -2,14 +2,14 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var BUILD_DIR = path.resolve(__dirname, 'built/client/assets');
+var BUILD_DIR = path.resolve(__dirname, 'built/client');
 var APP_DIR = path.resolve(__dirname, 'client/H5');
 
 var config = {
-  entry: [/*'babel-polyfill', */APP_DIR + '/index.js'],
+  entry: ['babel-polyfill', APP_DIR + '/index.js'],
   output: {
     path: BUILD_DIR,
-    filename: 'bundle.js'
+    filename: 'assets/bundle.js'
   },
 
   module: {
@@ -50,6 +50,9 @@ var config = {
       title: 'Petshop',
       filename: 'index.html',
       template: APP_DIR + '/assets/index.ejs',
+      scripts: [
+        'assets/bundle.js',
+      ]
     })
   ],
 };
