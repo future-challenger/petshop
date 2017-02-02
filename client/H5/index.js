@@ -8,6 +8,15 @@ import {render} from 'react-dom'
 import TitleInput from './TitleInput'
 
 class App extends React.Component {
+
+  async testAsync() {
+    return 'hello world'
+  }
+
+  componentDidMount() {
+    this.testAsync().then(val => console.log(val))
+  }
+
   render() {
     return (
       <div>

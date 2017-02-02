@@ -1,15 +1,17 @@
 var webpack = require('webpack');
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var BUILD_DIR = path.resolve(__dirname, 'built/client/assets');
 var APP_DIR = path.resolve(__dirname, 'client/H5');
 
 var config = {
-  entry: APP_DIR + '/index.js',
+  entry: [/*'babel-polyfill', */APP_DIR + '/index.js'],
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js'
   },
+
   module: {
     // rules: [
     //   {
@@ -34,14 +36,22 @@ var config = {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         include: [
           // path.resolve(__dirname, "app")
           APP_DIR
         ],
       },
     ]
-  }
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Petshop',
+      filename: 'index.html',
+      template: APP_DIR + '/assets/index.ejs',
+    })
+  ],
 };
 
 module.exports = config;
