@@ -4,8 +4,12 @@ This is a simple NodeJs server based Express. Database is MongoDB. The package t
 
 Mainly updates recently will include:
 
-1. [ ] Move ES5 to ES201x, of course all these stuff is based on Babel.
-2. [ ] Move Grunt to Gulp
+1. [ ] Move ES5 to ES201x, of course all these stuff is based on Babel. Newly added files will all written in ES2015.
+2. [x] Move Grunt to Gulp. 
+
+If you want know about the Petshop client, [please check this out](client/README.md).
+
+## OAuth2 in PetShop
 
 The main purpose is to do OAuth2 in server side. It based on `oauth2orize` and `passport`.
 
@@ -70,7 +74,7 @@ var verifyPasswordAsync = Promise.promisify(u.verifyPassword, { context: u });
 ```
 **Do remember to set context**, or it may not work.
 
-##Mongoose, add instance methods or static methods to model
+## Mongoose, add instance methods or static methods to model
 to add an instance method, just use the `Schema.methods.methodName = function(){}` or `Schema.method{'methodName', fn}`. eg:
 ```javascript
 // eg 1
