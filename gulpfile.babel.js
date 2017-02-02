@@ -6,11 +6,14 @@ import gulp from 'gulp'
 import eslint from 'gulp-eslint'
 import babel from 'gulp-babel'
 import sourcemaps from 'gulp-sourcemaps'
+import gulpWebpack from 'webpack-stream'
+import webpack from 'webpack'
 
 const paramConfig = {
   source: 'server/**/*.js',
-  serverDest: './build/server',
-  clientDest: './build/client',
+  clientSource: 'client/H5/index.js',
+  serverDest: './built/server',
+  clientDest: './built/client/assets',
 }
 
 gulp.task('lint', () => {
@@ -33,13 +36,19 @@ gulp.task('babel', () => {
 })
 
 gulp.task('babel-sourcemaps', () => {
-  return gulp.src(paramConfig.source)  
+  return gulp.src(paramConfig.source)
     .pipe(sourcemaps.init())
     .pipe(babel())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paramConfig.serverDest))
 })
 
-gulp.task('default', ['lint', 'babel-sourcemaps'], () => {
+gulp.task('webpack', () => {
+  return gulp.src(paramConfig.clientSource)
+    .pipe(gulpWebpack(require('./webpack.config.js')))
+    .pipe(gulp.dest(paramConfig.clientDest))
+})
+
+gulp.task('default', ['lint', 'babel-sourcemaps', 'webpack'], () => {
   console.log('gulp default task!')
 })
