@@ -9,7 +9,7 @@ var config = {
   entry: ['babel-polyfill', APP_DIR + '/index.js'],
   output: {
     path: BUILD_DIR,
-    filename: '/assets/bundle.js'
+    filename: 'assets/bundle.js'
   },
 
   module: {
@@ -50,14 +50,9 @@ var config = {
       title: 'Petshop',
       filename: 'index.html',
       template: APP_DIR + '/assets/index.ejs',
-      files: {
-        js: ['assets/bundle.js'],
-        chunks: {
-          head: {
-            entry: 'assets/bundle.js'
-          }
-        }
-      }
+      scripts: [
+        'assets/bundle.js',
+      ]
     })
   ],
 };
