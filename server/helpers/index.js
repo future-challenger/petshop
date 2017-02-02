@@ -7,6 +7,13 @@
 /**
  * This function is just placeholder for now
  */
-export default function loadCoreHelpers(hbsApp) {
-  console.log('=====>config helpers')
+// export default {
+//   loadCoreHelpers(hbsApp) {
+//     console.log('=====>config helpers')
+//   }
+// } 
+module.exports = {
+  loadCoreHelpers(hbsApp) {
+    console.log('=====>config helpers')
+  }
 }
