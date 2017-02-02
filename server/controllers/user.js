@@ -1,45 +1,47 @@
 var dataProvider = require('../models');
 
 var postUsers = function (req, res) {
-    var user = new dataProvider.User({
-        username: req.body.username,
-        password: req.body.password
-    });
+  var user = new dataProvider.User({
+    username: req.body.username,
+    password: req.body.password
+  });
 
-    // user.save(function (err) {
-    //     if (err) {
-    //         res.json({message: 'error', data: err});
-    //         return;
-    //     }
+  console.log(`=====> add user`, req)
 
-    //     res.json({message: 'done', data: user});
-    // });
+  // user.save(function (err) {
+  //     if (err) {
+  //         res.json({message: 'error', data: err});
+  //         return;
+  //     }
 
-    user.save().then(function(u) {
-        res.json({message: 'done', data: u});
-    }).catch(function(err) {
-        res.json({message: 'error', data: err});
-    });
+  //     res.json({message: 'done', data: user});
+  // });
+
+  user.save().then(function (u) {
+    res.json({ message: 'done', data: u });
+  }).catch(function (err) {
+    res.json({ message: 'error', data: err });
+  });
 };
 
 var getUsers = function (req, res) {
-    // User.find(function (err, users) {
-    //     if (err) {
-    //         res.json({message: 'error', data: err});
-    //         return;
-    //     }
+  // User.find(function (err, users) {
+  //     if (err) {
+  //         res.json({message: 'error', data: err});
+  //         return;
+  //     }
 
-    //     res.json({message: 'done', data: users});
-    // });
+  //     res.json({message: 'done', data: users});
+  // });
 
-    User.find({}).exec().then(function(users) {
-        res.json({message: 'done', data: users});
-    }).catch(function(err) {
-        res.json({message: 'error', data: err});
-    });
+  User.find({}).exec().then(function (users) {
+    res.json({ message: 'done', data: users });
+  }).catch(function (err) {
+    res.json({ message: 'error', data: err });
+  });
 };
 
 module.exports = {
-    postUsers: postUsers,
-    getUsers: getUsers
+  postUsers: postUsers,
+  getUsers: getUsers
 };
