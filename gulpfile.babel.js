@@ -17,7 +17,7 @@ const paramConfig = {
 }
 
 gulp.task('lint', () => {
-  return gulp.src([paramConfig.source, '!node_modules/**', '!server/petshop-admin/**'])
+  return gulp.src([paramConfig.source, '!node_modules/**', '!server/petshop-admin/**', '!server/node_modules/**'])
     .pipe(eslint())
     .pipe(eslint.result(result => {
       console.log(`ESLint result: ${result.filePath}`);
