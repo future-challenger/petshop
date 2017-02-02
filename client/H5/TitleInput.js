@@ -8,7 +8,7 @@ export default function TitleInput({title, placeHolder}) {
   return (
     <div style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
       <span>{title}</span>
-      <input />
+      <input type='text' placeholder={{placeHolder}} />
     </div>
   )
 }

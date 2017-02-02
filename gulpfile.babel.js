@@ -5,9 +5,11 @@
 import gulp from 'gulp'
 import eslint from 'gulp-eslint'
 import babel from 'gulp-babel'
+import gutil from "gulp-util";
 import sourcemaps from 'gulp-sourcemaps'
 import gulpWebpack from 'webpack-stream'
 import webpack from 'webpack'
+import webpackConfig from './webpack.config'
 
 const paramConfig = {
   source: 'server/**/*.js',
@@ -43,12 +45,22 @@ gulp.task('babel-sourcemaps', () => {
     .pipe(gulp.dest(paramConfig.serverDest))
 })
 
-gulp.task('webpack', () => {
-  return gulp.src(paramConfig.clientSource)
-    .pipe(gulpWebpack(require('./webpack.config.js')))
-    .pipe(gulp.dest(paramConfig.clientDest))
+gulp.task('webpack:build', (callback) => {
+  let config = Object.create(webpackConfig)
+  // return gulp.src(paramConfig.clientSource)
+  //   .pipe(gulpWebpack({}, webpack))
+  //   .pipe(gulpWebpack(require('./webpack.config.js')))
+  //   .pipe(gulp.dest(paramConfig.clientDest))
+  webpack(config, (err, stats) => {
+    if (err) throw new gutil.PluginError('webpack:build', err)
+    gutil.log('[webpack:util]', stats.toString({
+      colors: true
+    }))
+    if (callback)
+      callback()
+  })
 })
 
-gulp.task('default', ['lint', 'babel-sourcemaps', 'webpack'], () => {
-  console.log('gulp default task!')
+gulp.task('default', ['lint', 'babel-sourcemaps', 'webpack:build'], () => {
+  console.log('#####gulp default task!')
 })

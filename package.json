@@ -47,6 +47,7 @@
     "gulp-cli": "^1.2.2",
     "gulp-eslint": "^3.0.1",
     "gulp-sourcemaps": "^2.4.0",
+    "gulp-util": "^3.0.8",
     "gulp-watch": "^4.3.11",
     "html-webpack-plugin": "^2.28.0",
     "postcss-loader": "^1.2.2",
