@@ -13,12 +13,13 @@ setupMiddleware = function (apiApp, adminApp) {
 
   // apiApp.set('view engine', 'ejs');
 
+  apiApp.use(bodyParser.json())
   apiApp.use(bodyParser.urlencoded({
     extended: true
   }));
 
   apiApp.use(session({
-    secret: 'a4f8071f-4447-c873-8ee2',
+    secret: 'a4f8071f-4447-c873-8ee2',  
     saveUninitialized: true,
     resave: true
   }));

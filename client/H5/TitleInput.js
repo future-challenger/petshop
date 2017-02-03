@@ -4,11 +4,11 @@
 
 import React from 'react'
 
-export default function TitleInput({title, placeHolder}) {
+export default function TitleInput({title, placeHolder, type}) {
   return (
     <div style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
       <span>{title}</span>
-      <input type='text' placeholder={{placeHolder}} />
+      <input type='text' placeholder={placeHolder} type={!type ? '' : type} />
     </div>
   )
 }

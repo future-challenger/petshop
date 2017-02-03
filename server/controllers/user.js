@@ -1,12 +1,10 @@
 var dataProvider = require('../models');
 
-var postUsers = function (req, res) {
+var postUsers = (req, res) => {
   var user = new dataProvider.User({
-    username: req.body.username,
-    password: req.body.password
+    username: req.body.data.username,
+    password: req.body.data.password
   });
-
-  console.log(`=====> add user`, req)
 
   // user.save(function (err) {
   //     if (err) {
@@ -17,14 +15,14 @@ var postUsers = function (req, res) {
   //     res.json({message: 'done', data: user});
   // });
 
-  user.save().then(function (u) {
+  user.save().then((u) => {
     res.json({ message: 'done', data: u });
-  }).catch(function (err) {
+  }).catch((err) => {
     res.json({ message: 'error', data: err });
   });
 };
 
-var getUsers = function (req, res) {
+var getUsers = (req, res) => {
   // User.find(function (err, users) {
   //     if (err) {
   //         res.json({message: 'error', data: err});

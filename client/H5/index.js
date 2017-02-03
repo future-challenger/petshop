@@ -16,17 +16,31 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.testAsync().then(val => console.log(val))
+    // this.testAsync().then(val => console.log(val))
   }
 
   _handleSubmit() {
+    console.log('=====>_handleSubmit', JSON.stringify({
+        data: {username: 'test111', password: '123456'}
+      }))
+    
+    let data = {data: {username: 'webuser', password: '123456'}}
     /**
      * for now the http request is just direct requested the dev server aka the localhsot.
      * this will refactored later.
      */
-    fetch('localhost:3090/api/v1/users', {
+    fetch('http://localhost:3090/api/v1/users', {
       method: 'POST',
-      body: {}
+      mode: 'no-cors',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data || {}),
+    }).then(v => {
+      console.log('=====>fetched value', v.json())
+    }).catch(err => {
+      console.log('=====>fetch error', err)
     })
   }
 
@@ -34,9 +48,9 @@ class App extends React.Component {
     return (
       <div>
         <p>Yo react!</p>
-        <TitleInput title='user name' />
-        <TitleInput title='password' />
-        <input type='button' onClick={this._handleSubmit} />
+        <TitleInput title='user name' placeHolder='input username' />
+        <TitleInput title='password' placeHolder='input password' type='password' />
+        <input type='button' value='click to register' onClick={this._handleSubmit} />
       </div>
     )
   }
