@@ -1,6 +1,7 @@
 {
     "presets": ["es2015", "stage-2", "react"],
-    "plugins": ["syntax-async-functions","transform-regenerator", "transform-object-assign", "transform-object-rest-spread"],
+    "plugins": ["syntax-async-functions","transform-regenerator", "transform-object-assign", 
+        "transform-object-rest-spread","transform-react-jsx-source"],
     "sourceMaps": true,
     "retainLines": true
 }
