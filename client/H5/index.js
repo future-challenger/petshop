@@ -3,7 +3,7 @@
  */
 
 import React from 'react'
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 
 import TitleInput from './TitleInput'
 
@@ -21,21 +21,29 @@ class App extends React.Component {
 
   _handleSubmit() {
     console.log('=====>_handleSubmit', JSON.stringify({
-        data: {username: 'test111', password: '123456'}
-      }))
-    
-    let data = {data: {username: 'webuser', password: '123456'}}
+      data: { username: 'test111', password: '123456' }
+    }))
+
+    let data = { data: { username: 'webuser', password: '123456' } }
     /**
      * for now the http request is just direct requested the dev server aka the localhsot.
      * this will refactored later.
      */
-    fetch('http://localhost:3090/api/v1/users', {
+    let header = new Headers({
+      'Access-Control-Allow-Origin': '*',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    });
+
+    fetch('http://127.0.0.1:3090/api/v1/users', {
       method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
+      // mode: 'cors', // use default
+      // headers: new Headers({
+      //   'Access-Control-Allow-Origin': '*',
+      //   'Accept': 'application/json',
+      //   'Content-Type': 'application/json',
+      // }),
+      headers: header,
       body: JSON.stringify(data || {}),
     }).then(v => {
       console.log('=====>fetched value', v.json())

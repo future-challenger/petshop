@@ -1,4 +1,3 @@
-
 import 'babel-polyfill'
 var Promise = require('bluebird'),
   express = require('express'),

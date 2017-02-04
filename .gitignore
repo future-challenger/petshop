@@ -6,6 +6,7 @@
 built
 
 node_modules
+npm-debug.log
 
 # Yarn
-yarn.*
+yarn.lock   
