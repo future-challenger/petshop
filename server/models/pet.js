@@ -1,5 +1,5 @@
-var mongoose        = require('./base'),
-    Accessory = require('./accessory');
+import mongoose from './base';
+import Accessory from './accessory';
 
 var Schema = mongoose.BaseSchema;
 var AccessorySchema = Accessory.schema;
@@ -9,17 +9,17 @@ var petSchema = new Schema({
     name: { type: String, required: true, unique: true },
     type: { type: String, required: true },
     quantity: Number,
-    username: {type: String, required: true},
+    username: { type: String, required: true },
     accessories: [AccessorySchema]
     // ,user: { type: mongoose.Schema.Types.ObjectId, ref: 'users' }
 });
 
-petSchema.static('anotherFindOne', function(options, callback) {
+petSchema.static('anotherFindOne', function (options, callback) {
     var conditions = options || {};
     return this.findOne(conditions, callback);
 });
 
-petSchema.static('saveOne', function(options, callback) {
+petSchema.static('saveOne', function (options, callback) {
     var pet = new this(); // *
     pet.name = options.name;
     pet.type = options.type;
@@ -42,7 +42,7 @@ petSchema.static('saveOne', function(options, callback) {
     return pet.save(callback); // return also returns the promise.
 });
 
-petSchema.static('findFull', function(options, callback) {
+petSchema.static('findFull', function (options, callback) {
     console.log('###find full method');
     var un = options.username;
     return this.aggregate()/*.match({username: un})*/ // find all pets whose username field can left join users'.
@@ -66,6 +66,6 @@ petSchema.static('findFull', function(options, callback) {
     // return this.find({}).populate('users').exec(callback);
 });
 
-module.exports = {
+export default {
     Pet: mongoose.model('pet', petSchema)
 };

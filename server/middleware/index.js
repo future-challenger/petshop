@@ -1,15 +1,13 @@
-var bodyParser = require('body-parser'),
-  passport = require('passport'),
-  // ejs                 = require('ejs'),
-  express = require('express'),
-  session = require('express-session'),
-  apiRoutes = require('../controllers'),
-  frontendRoutes = require('../routes/frontend'),
-
-  setupMiddleware;
+import bodyParser from 'body-parser';
+import passport from 'passport';
+// ejs                 = require('ejs'),
+import express from 'express';
+import session from 'express-session';
+import apiRoutes from '../controllers';
+import frontendRoutes from '../routes/frontend';
 
 
-setupMiddleware = function (apiApp, adminApp) {
+export default function setupMiddleware(apiApp, adminApp) {
 
   // apiApp.set('view engine', 'ejs');
 
@@ -19,7 +17,7 @@ setupMiddleware = function (apiApp, adminApp) {
   }));
 
   apiApp.use(session({
-    secret: 'a4f8071f-4447-c873-8ee2',  
+    secret: 'a4f8071f-4447-c873-8ee2',
     saveUninitialized: true,
     resave: true
   }));
@@ -27,14 +25,12 @@ setupMiddleware = function (apiApp, adminApp) {
   apiApp.use(apiRoutes.apiBaseUri, apiRoutes.api({}));
 
   // TODO: add adminApp's middlewares later
-  if(!adminApp) {
+  if (!adminApp) {
     console.log('admin app is not ready for config middleware')
-    return 
+    return
   }
 
   adminApp.use('/', frontendRoutes());
 
   apiApp.use('/admin', adminApp);
 }
-
-module.exports = setupMiddleware;
