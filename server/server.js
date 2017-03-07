@@ -1,17 +1,16 @@
 import 'babel-polyfill'
 // 引入我们需要的包express
-var express = require('express'),
-  Promise = require('bluebird'),
-  mongoose = require('mongoose'),
+import express from 'express';
+import  mongoose from 'mongoose';
 
   // bodyParser          = require('body-parser'),
   // passport            = require('passport'),
   // ejs                 = require('ejs'),
   // session             = require('express-session'),
-  api = require('./controllers/api'),
-  models = require('./models'),
-  setupMiddleware = require('./middleware'),
-  routes = require('./controllers');
+import  api from './controllers/api';
+import  models from './models';
+import  setupMiddleware from './middleware';
+import  routes from './controllers';
 
 // 创建一个express的server
 var app = express();

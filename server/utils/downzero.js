@@ -1,9 +1,9 @@
 // Functions to imitate the behavior of Downsize@0.0.5 with 'words: "0"' (heavily based on Downsize)
 
 var stack, tagName, tagBuffer, truncatedText, parseState, pointer,
-    states = {unitialized: 0, tag_commenced: 1, tag_string: -1, tag_string_single: -2, comment: -3},
+    states = { unitialized: 0, tag_commenced: 1, tag_string: -1, tag_string_single: -2, comment: -3 },
     voidElements = ['area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input',
-    'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
+        'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
 
 function getTagName(tag) {
     var tagName = (tag || '').match(/<\/*([a-z0-9\:\-\_]+)/i);
@@ -15,7 +15,7 @@ function closeTag(openingTag) {
     return tagName;
 }
 
-function downzero(text) {
+export default function downzero(text) {
     stack = [];
     tagName = '';
     tagBuffer = '';
@@ -105,5 +105,3 @@ function downzero(text) {
 
     return truncatedText;
 }
-
-module.exports = downzero;

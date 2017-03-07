@@ -1,9 +1,6 @@
-var unidecode = require('unidecode'),
-  _ = require('lodash'),
-  // readCSV    = require('./read-csv'),
-
-  utils,
-  getRandomInt;
+import unidecode from 'unidecode';
+import * as  _ from 'lodash';
+  // readCSV    = require('./read-csv');
 
 /**
  * Return a random int, used by `utils.uid()`
@@ -13,11 +10,11 @@ var unidecode = require('unidecode'),
  * @return {Number}
  * @api private
  */
-getRandomInt = function (min, max) {
+let getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-utils = {
+export default utils = {
   /**
    * Timespans in seconds and milliseconds for better readability
    */
@@ -104,5 +101,3 @@ utils = {
 
   // ,readCSV: readCSV
 };
-
-module.exports = utils;

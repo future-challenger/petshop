@@ -1,10 +1,12 @@
-var Promise = require('bluebird'),
-  config = require('./config'); // @TODO read configuration
+/**
+ * Created by Uncle Charlie
+ */
+import  config from './config'; // @TODO read configuration
 
 var port = process.env.PORT || '3090';
 var host = 'localhost';
 
-function SiteServer(rootApp) {
+export default function SiteServer(rootApp) {
   this.rootApp = rootApp;
   this.httpServer = null;
 }
@@ -60,5 +62,3 @@ SiteServer.prototype.stop = function () {
 SiteServer.prototype.restart = function () {
   return this.stop().then(this.start.bind(this));
 };
-
-module.exports = SiteServer;

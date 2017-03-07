@@ -1,19 +1,16 @@
 import 'babel-polyfill'
-var Promise = require('bluebird'),
-  express = require('express'),
-  mongoose = require('mongoose'),
-  hbs = require('express-hbs'),
+import  express from 'express';
+import  mongoose from 'mongoose';
+import  hbs from 'express-hbs';
 
-  SiteServer = require('./SiteServer'),
-  models = require('./models'),
-  api = require('./controllers/api'),
-  middleware = require('./middleware'),
-  helpers = require('./helpers'),
-  errors = require('./errors'),
+import  SiteServer from './SiteServer';
+import  models from './models';
+import  api from './controllers/api';
+import middleware from './middleware';
+import  helpers from './helpers';
+import  errors from './errors';
 
-  init;
-
-init = function init() {
+function init() {
   var apiApp = express(), // API
     adminApp = express();   // Admin site
 
