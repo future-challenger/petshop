@@ -1,4 +1,4 @@
-var mongoose    = require('./base');
+import mongoose   from './base';
 var Schema = mongoose.BaseSchema;
 
 var codeSchema = new Schema({
