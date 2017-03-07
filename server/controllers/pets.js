@@ -1,11 +1,10 @@
-var Promise  = require('bluebird'),
-    _   = require('lodash'),
-    dataProvider = require('../models'),
-    
-    pets;
 
-pets = {
-    browse: function(options) {
+import * as    _ from 'lodash';
+import dataProvider from '../models';
+
+
+export default {
+    browse: function (options) {
         function queryModel(options) {
             var conditions = {}; // I'm going to find all pets.
             return dataProvider.Pet.find(conditions);
@@ -20,5 +19,3 @@ pets = {
         }
     }
 };
-
-module.exports = pets;

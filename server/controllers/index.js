@@ -3,20 +3,18 @@
  * This is where HTTP request and related handler a combined together.
  */
 
-var express             = require('express'),
+import express from 'express';
 
-    api                 = require('./api'),
+import api from './api';
 
-    petController       = require('./pet'),
-    petApi              = require('./pets'),
-    userController      = require('./user'),
-    authController      = require('./auth'),
-    clientController    = require('./client'),
-    oauth2Controller    = require('./oauth2'),
+import petController from './pet';
+import petApi from './pets';
+import userController from './user';
+import authController from './auth';
+import clientController from './client';
+import oauth2Controller from './oauth2';
 
-    apiRoutes;
-
-apiRoutes = function(middleware) {
+var apiRoutes = function (middleware) {
     var router = express.Router();
 
     // router.get('/', function (req, res) {
@@ -55,7 +53,7 @@ apiRoutes = function(middleware) {
     return router;
 };
 
-module.exports = {
+export default {
     apiBaseUri: '/api/v1/',
     api: apiRoutes
 };

@@ -1,9 +1,9 @@
-var _               = require('lodash'),
-    utils           = require('../utils'),
-    dataProvider    = require('../models/pet'),
-    Accessory       = require('../models/accessory').model;
+import * as _ from 'lodash';
+import utils from '../utils';
+import dataProvider from '../models/pet';
+import { model as Accessory } from '../models/accessory';
 
-var postPets = function(req, res) {
+var postPets = function (req, res) {
     var pet = new dataProvider.Pet();
     pet.name = req.body.name;
     pet.type = req.body.type;
@@ -38,14 +38,14 @@ var postPets = function(req, res) {
     //     res.json({message: 'error', data: err});
     // });
 
-    dataProvider.Pet.saveOne(options).then(function(pet) {
-        res.json({message: 'done', data: pet});
-    }).catch(function(err) {
-        res.json({message: 'error', data: err});
+    dataProvider.Pet.saveOne(options).then(function (pet) {
+        res.json({ message: 'done', data: pet });
+    }).catch(function (err) {
+        res.json({ message: 'error', data: err });
     });
 };
 
-var getPets = function(req, res) {
+var getPets = function (req, res) {
     // Pet.find(function (err, pets) {
     //     if (err) {
     //         res.json({message: 'error', data: err});
@@ -55,24 +55,24 @@ var getPets = function(req, res) {
     //     res.json({message: 'done', data: pets});
     // });
 
-    dataProvider.Pet.find({}).exec().then(function(pets) {
-        res.json({message: 'done', data: pets});
-    }).catch(function(err) {
-        res.json({message: 'error', data: err});
+    dataProvider.Pet.find({}).exec().then(function (pets) {
+        res.json({ message: 'done', data: pets });
+    }).catch(function (err) {
+        res.json({ message: 'error', data: err });
     });
 };
 
-var getFullPets = function(req, res) {
+var getFullPets = function (req, res) {
     console.log('get full pets');
     // var options = _.extend({}, req.query, req.body, req.params, req.user);
-    dataProvider.Pet.findFull({}).exec().then(function(pets) {
-        res.json({message: 'done', data: pets});
-    }).catch(function(err) {
-        res.json({message: 'error', data: err});
+    dataProvider.Pet.findFull({}).exec().then(function (pets) {
+        res.json({ message: 'done', data: pets });
+    }).catch(function (err) {
+        res.json({ message: 'error', data: err });
     });
 };
 
-var getPet = function(req, res) {
+var getPet = function (req, res) {
     // Pet.findById(req.params.pet_id, function (err, pet) {
     //     if (err) {
     //         res.json({message: 'error', data: err});
@@ -99,14 +99,14 @@ var getPet = function(req, res) {
 
 
 
-    dataProvider.Pet.anotherFindOne({'_id': req.params.pet_id}).exec().then(function(pet) {
-        res.json({message: 'done', data: pet});
-    }).catch(function(err) {
-        res.json({message: 'error', data: err});
+    dataProvider.Pet.anotherFindOne({ '_id': req.params.pet_id }).exec().then(function (pet) {
+        res.json({ message: 'done', data: pet });
+    }).catch(function (err) {
+        res.json({ message: 'error', data: err });
     });
 };
 
-var updatePet = function(req, res) {
+var updatePet = function (req, res) {
     // Pet.findById(req.params.pet_id, function(err, pet) {
     //     if (err) {
     //         res.json({message: 'error', data: err});
@@ -125,17 +125,17 @@ var updatePet = function(req, res) {
     //     });
     // });
 
-    dataProvider.Pet.findById(req.params.pet_id).then(function(p) {
+    dataProvider.Pet.findById(req.params.pet_id).then(function (p) {
         p.quantity = req.params.quantity;
         return p.save();
-    }).then(function(p){
-        res.json({message: 'done', data: pet});
-    }).catch(function(err) {
-        res.json({message: 'error', data: err});
+    }).then(function (p) {
+        res.json({ message: 'done', data: pet });
+    }).catch(function (err) {
+        res.json({ message: 'error', data: err });
     });
 };
 
-var deletePet = function(req, res) {
+var deletePet = function (req, res) {
     // Pet.findByIdAndRemove(req.params.pet_id, function(err) {
     //     if (err) {
     //         res.json({message: 'error', data: err});
@@ -145,14 +145,14 @@ var deletePet = function(req, res) {
     //     res.json({message: 'done', data: {}});
     // });
 
-    dataProvider.Pet.findByIdAndRemove(req.params.pet_id).then(function(){
-        res.json({message: 'done', data: {}});
-    }).catch(function(err) {
-        res.json({message: 'error', data: err});
+    dataProvider.Pet.findByIdAndRemove(req.params.pet_id).then(function () {
+        res.json({ message: 'done', data: {} });
+    }).catch(function (err) {
+        res.json({ message: 'error', data: err });
     });
 }
 
-module.exports = {
+export default {
     postPets: postPets,
     getPets: getPets,
     getFullPets: getFullPets,
