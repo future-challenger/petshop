@@ -58,6 +58,8 @@ passport.use(new BasicStrategy(
     //     return done(err);
     // });
 
+    console.log('===>controller/auth, 61', dataProvider);
+
     dataProvider.User.findOne({ username: username }).exec().then((u) => {
       if (!u) {
         done(null, false);

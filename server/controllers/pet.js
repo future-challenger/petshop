@@ -4,7 +4,7 @@
 
 import * as  _ from 'lodash'
 import utils from '../utils'
-import dataProvider from '../models/pet'
+import dataProvider from '../models'
 // import    Accessory       from '../models/accessory').model;
 
 var postPets = function (req, res) {

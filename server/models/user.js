@@ -116,6 +116,4 @@ userSchema.methods.verifyPassword = function (password, callback) {
   });
 };
 
-export default {
-  User: mongoose.model('User', userSchema)
-};
+export default mongoose.model('User', userSchema);

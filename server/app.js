@@ -3,16 +3,16 @@
  */
 
 import 'babel-polyfill'
-import  express from 'express';
-import  mongoose from 'mongoose';
-import  hbs from 'express-hbs';
+import express from 'express';
+import mongoose from 'mongoose';
+import hbs from 'express-hbs';
 
-import  SiteServer from './SiteServer';
-import  models from './models';
-import  api from './controllers/api';
+import SiteServer from './SiteServer';
+import models from './models';
+import api from './controllers/api';
 import middleware from './middleware';
-import  helpers from './helpers';
-import  errors from './errors';
+import helpers from './helpers';
+import errors from './errors';
 
 function init() {
   var apiApp = express(), // API
@@ -23,7 +23,9 @@ function init() {
     // TODO: configure this connection string.
     mongoose.connect('mongodb://localhost:27017/petshop');
   }).then(() => {
-    models.init();
+    // no longer needed, no dynamic load for import key word
+    // models.init(); 
+    console.log('===>models init');
   }).then(() => {
     api.init();
   }).then(() => {

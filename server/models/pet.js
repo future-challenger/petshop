@@ -70,6 +70,4 @@ petSchema.static('findFull', function (options, callback) {
     // return this.find({}).populate('users').exec(callback);
 });
 
-export default {
-    Pet: mongoose.model('pet', petSchema)
-};
+export default mongoose.model('pet', petSchema);

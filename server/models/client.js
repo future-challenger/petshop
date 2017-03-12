@@ -11,6 +11,4 @@ var clientSchema = new mongoose.BaseSchema({
     userId: {type: String, required: true}
 });
 
-export default {
-    Client: mongoose.model('client', clientSchema)
-};
+export default mongoose.model('client', clientSchema);

@@ -11,6 +11,4 @@ var tokenSchema = new Schema({
     clientId: { type: String, required: true }
 });
 
-export default {
-    Token: mongoose.model('token', tokenSchema)
-};
+export default mongoose.model('token', tokenSchema);
