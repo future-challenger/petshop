@@ -7,14 +7,15 @@
             "protocol": "inspector",
             "request": "launch",
             "program": "${workspaceRoot}/server/app.js",
-            "stopOnEntry": false,
+            "stopOnEntry": true,
             "args": [],
             "cwd": "${workspaceRoot}",
             "preLaunchTask": null,
-            "runtimeExecutable": null,
+            "runtimeExecutable": null, //"${workspaceRoot}/node_modules/.bin/babel-node"
             "runtimeArgs": [
-                "--nolazy",
-                "--require",
+                "--nolazy"
+                // ,"--debug"
+                ,"--require",
                 "babel-register"
             ],
             "env": {
@@ -22,7 +23,7 @@
             },
             "console": "integratedTerminal",
             "sourceMaps": true,
-            "outFiles": ["built/server/**/*.js"]
+            "outFiles": ["${workspaceRoot}/built/server/**/*.js"]
         },
         {
             "name": "Attach",

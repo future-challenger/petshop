@@ -119,23 +119,35 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-module.exports.authorization = [
-    server.authorization(function (clientId, redirectUri, callback) {
-        Client.findOne({ id: clientId }, function (err, client) {
-            if (err) { return callback(err); }
+// module.exports.authorization = [
+//     server.authorization(function (clientId, redirectUri, callback) {
+//         Client.findOne({ id: clientId }, function (err, client) {
+//             if (err) { return callback(err); }
 
-            return callback(null, client, redirectUri);
-        });
-    }),
-    function (req, res) {
-        res.render('dialog', { transactionID: req.oauth2.transactionID, user: req.user, client: req.oauth2.client });
-    }
-];
+//             return callback(null, client, redirectUri);
+//         });
+//     }),
+//     function (req, res) {
+//         res.render('dialog', { transactionID: req.oauth2.transactionID, user: req.user, client: req.oauth2.client });
+//     }
+// ];
 
 export default {
     decision: [server.decision()],
     token: [
         server.token(),
         server.errorHandler()
+    ],
+    authorization: [
+        server.authorization(function (clientId, redirectUri, callback) {
+            Client.findOne({ id: clientId }, function (err, client) {
+                if (err) { return callback(err); }
+
+                return callback(null, client, redirectUri);
+            });
+        }),
+        function (req, res) {
+            res.render('dialog', { transactionID: req.oauth2.transactionID, user: req.user, client: req.oauth2.client });
+        }
     ]
 };
