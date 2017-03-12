@@ -1,3 +1,7 @@
+/**
+ * Created by Uncle Charlie, 2017/03/01
+ */
+
 import Promise from 'bluebird'
 import passport from 'passport'
 import { BasicStrategy } from 'passport-http'

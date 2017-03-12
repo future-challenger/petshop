@@ -1,3 +1,7 @@
+/**
+ * Created by Uncle Charlie, 2017/03/01
+ */
+
 import mongoose from 'mongoose'
 import util from 'util'
 // Promise = require('bluebird');

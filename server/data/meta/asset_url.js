@@ -1,3 +1,6 @@
+/**
+ * Created by Uncle Charlie, 2017/03/01
+ */
 
 // @TODO: deal woth these parameters
 export default getAssetUrl = function (path, isAdmin, minify) {

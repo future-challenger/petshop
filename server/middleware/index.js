@@ -1,6 +1,9 @@
+/**
+ * Created by Uncle Charlie, 2017/03/01
+ */
+
 import bodyParser from 'body-parser';
 import passport from 'passport';
-// ejs                 = require('ejs'),
 import express from 'express';
 import session from 'express-session';
 import apiRoutes from '../controllers';

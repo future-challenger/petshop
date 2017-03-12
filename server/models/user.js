@@ -1,3 +1,7 @@
+/**
+ * Created by Uncle Charlie, 2017/03/01
+ */
+
 import mongoose from './base'
 import bcrypt from 'bcryptjs'
 // import Promise from 'bluebird'

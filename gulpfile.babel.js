@@ -61,6 +61,6 @@ gulp.task('webpack:build', (callback) => {
   })
 })
 
-gulp.task('default', ['lint', 'babel-sourcemaps', 'webpack:build'], () => {
+gulp.task('default', [/*'lint', */'babel-sourcemaps', 'webpack:build'], () => {
   console.log('#####gulp default task!')
 })

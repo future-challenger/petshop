@@ -1,3 +1,7 @@
+/**
+ * Created by Uncle Charlie, 2017/03/01
+ */
+
 import oauth2orize from 'oauth2orize';
 import User from '../models/user';
 import Client from '../models/client';

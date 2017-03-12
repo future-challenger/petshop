@@ -1,3 +1,7 @@
+/**
+ * Created by Uncle Charlie, 2017/03/01
+ */
+
 import * as  _ from 'lodash';
 
 let exports = module.exports;
