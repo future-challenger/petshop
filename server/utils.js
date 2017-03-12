@@ -1,4 +1,4 @@
-function listAllKeyValues(obj) {
+export default function listAllKeyValues(obj) {
   // for (key in obj) {
   //     if (obj.hasOwnProperty(key)) {
   //         console.log(`key is ${key} value is ${obj[key]}`);
@@ -9,5 +9,3 @@ function listAllKeyValues(obj) {
     console.log(`key is ${key} -- value is ${obj[key]}`);
   });
 }
-
-module.exports.listAllKeyValues = listAllKeyValues;

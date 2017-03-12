@@ -1,4 +1,4 @@
-var mongoose = require('./base');
+import mongoose from './base';
 
 var Schema = mongoose.BaseSchema;
 
@@ -7,7 +7,7 @@ var AccessorySchema = new Schema({
     price: {type: Number, required: true}
 });
 
-module.exports = {
+export default {
     schema: AccessorySchema,
     model: mongoose.model('accessories', AccessorySchema)
 };

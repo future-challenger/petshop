@@ -1,4 +1,4 @@
-var dataProvider = require('../models');
+import dataProvider from '../models';
 
 var postUsers = (req, res) => {
   var user = new dataProvider.User({
@@ -39,7 +39,7 @@ var getUsers = (req, res) => {
   });
 };
 
-module.exports = {
+export default {
   postUsers: postUsers,
   getUsers: getUsers
 };

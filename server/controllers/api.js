@@ -1,14 +1,10 @@
-var _ = require('lodash'),
-  Promise = require('bluebird'),
+import * as _ from 'lodash';
 
-  init,
-  http;
-
-init = function init() {
+function init() {
   // do some initialization
 }
 
-http = function (apiMethod) {
+function http(apiMethod) {
   return function apiHandler(req, res, next) {
     var object = req.body,
       options = _.extend({}, /*req,file, */req.query, req.params, {
@@ -49,7 +45,4 @@ http = function (apiMethod) {
   };
 };
 
-module.exports = {
-  init: init,
-  http: http
-}
+export default { http, init };

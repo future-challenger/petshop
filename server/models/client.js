@@ -1,4 +1,4 @@
-var mongoose    = require('./base');
+import mongoose  from './base';
 
 var clientSchema = new mongoose.BaseSchema({
     name: {type: String, unique: true, required: true},
@@ -7,6 +7,6 @@ var clientSchema = new mongoose.BaseSchema({
     userId: {type: String, required: true}
 });
 
-module.exports = {
+export default {
     Client: mongoose.model('client', clientSchema)
 };

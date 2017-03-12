@@ -1,11 +1,8 @@
-var _ = require('lodash'),
+import * as  _ from 'lodash';
 
-  exports,
-  models;
+let exports = module.exports;
 
-exports = module.exports;
-
-models = [
+let models = [
   'accessory',
   'client',
   'code',
