@@ -1,0 +1,10 @@
+public/bundle.js
+public/bundle.js.map
+public/helloworld.js
+public/index.html
+public/user.js
+
+npm-debug.log
+
+#for test only
+test.html
