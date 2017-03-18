@@ -4,6 +4,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var BUILD_DIR = path.resolve(__dirname, 'built/client');
 var APP_DIR = path.resolve(__dirname, 'client/H5');
+var ADMIN_DIR = path.resolve(__dirname, 'client/pethosp-admin');
+var ADMIN_BUILD_DIR = path.resolve(__dirname, 'bhilt/pethosp-admin');
 
 var config = {
   entry: ['babel-polyfill', APP_DIR + '/index.js'],
